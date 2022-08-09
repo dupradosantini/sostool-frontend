@@ -1,0 +1,34 @@
+<div class="hero is-fullheight has-background">
+   <div class="hero-body">
+     <div class="container has-text-centered">
+      <h1 class="title"> Available Workspaces </h1>
+       <!--  CARD  -->
+      <section class="cards"*ngIf=" workspaceArray.length > 0 ">
+          <div class="card" *ngFor="let workspace of workspaceArray; let i = index" routerLink="">
+            <header class="card-header">
+              <p class="card-header-title is-centered">
+                {{workspace.name}}
+              </p>
+            </header>
+            <div class="card-content">
+              <div class="content">
+                {{workspace.description}}
+              </div>
+              <div class="teams-title">
+                Constituent Teams
+              </div>
+              <div class="teams-container">
+                <div class="teams-content" *ngFor="let team of workspace.teams;">
+                  {{team.name}}
+                </div>
+              </div>
+            </div>
+          </div>
+      </section>
+       <!-- CARD   -->
+       <section *ngIf=" workspaceArray.length <=0 ">
+        <h3> Oops... seems like we are out of workspaces.</h3>
+      </section>
+     </div>
+   </div>
+ </div>
