@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Workspace } from '../workspace.model';
 import { WorkspaceService } from '../workspace.service';
 
@@ -11,7 +12,7 @@ export class WorkspaceReadComponent implements OnInit {
 
   workspaceArray: Workspace[] = [];
 
-  constructor(private service: WorkspaceService) { }
+  constructor(private service: WorkspaceService, private router: Router) { }
 
   ngOnInit(): void {
     this.getWorkspaces();
@@ -28,6 +29,11 @@ export class WorkspaceReadComponent implements OnInit {
         console.log("Error loading workspaces");
       }
     })
+  }
+
+  goToWorkspace(id: Number){
+    const pageURI = `workspaces/${id}`;
+    this.router.navigate([`${pageURI}`])
   }
 
 }

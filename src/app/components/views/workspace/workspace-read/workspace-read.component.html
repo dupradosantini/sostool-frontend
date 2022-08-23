@@ -4,7 +4,7 @@
       <h1 class="title"> Available Workspaces </h1>
        <!--  CARD  -->
       <section class="cards"*ngIf=" workspaceArray.length > 0 ">
-          <div class="card" *ngFor="let workspace of workspaceArray; let i = index" routerLink="">
+          <div class="card" *ngFor="let workspace of workspaceArray; let i = index" (click)="goToWorkspace(workspace.id)">
             <header class="card-header">
               <p class="card-header-title is-centered">
                 {{workspace.name}}
