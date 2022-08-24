@@ -18,8 +18,9 @@ export class WorkspaceService {
     return this.http.get<Workspace[]>(url);
   }
 
-  findWorkspaceById(){
-
+  findWorkspaceById(id: Number): Observable<Workspace>{
+    const url = `${this.baseUrl}/workspace/${id}`
+    return this.http.get<Workspace>(url);
   }
 
   findWorkspaceTeams(){

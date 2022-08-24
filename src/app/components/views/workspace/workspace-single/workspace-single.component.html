@@ -1,1 +1,38 @@
-<p>workspace-single works!</p>
+<section class="hero is-fullheight">
+
+  <div class="hero-body">
+    <div class="container has-text-centered" *ngIf="this.teamsArray.length>0">
+      <p class="title">
+        {{this.teamsArray[this.selectedTeam].name}}
+      </p>
+      <p class="subtitle">
+        This is the page of this team!
+      </p>
+    </div>
+    <div class="container has-text-centered" *ngIf="this.teamsArray.length<=0">
+      <p class="title">
+        This Project has no teams!
+      </p>
+      <p class="subtitle">
+        Why dont you create one?
+      </p>
+    </div>
+  </div>
+
+  <div class="hero-foot">
+    <nav class="tabs is-centered is-boxed is-medium">
+      <div class="container">
+        <ul #tabs>
+          <li class="tab" *ngFor="let team of teamsArray; let i = index;" (click)="selectTeam(i,tabs)">
+            <a class="names">{{team.name}}</a>
+          </li>
+          <li class="add-team-tab">
+            <a>
+              <span> + Add Team </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</section>
