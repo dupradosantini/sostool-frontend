@@ -8,4 +8,11 @@ export interface Workspace{
 export interface Teams{
   id: Number;
   name: String;
+  teamAssignedRoles: Roles[];
+}
+
+export interface Roles{
+  id: Number;
+  name: String;
+  description: String;
 }

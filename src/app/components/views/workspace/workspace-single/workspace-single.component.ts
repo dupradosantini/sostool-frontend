@@ -13,6 +13,7 @@ export class WorkspaceSingleComponent implements OnInit {
   workspaceId: Number;
   teamsArray: Teams[];
   selectedTeam: number;
+  workspaceName: String;
 
   constructor(private service: WorkspaceService,
     private route: ActivatedRoute,
@@ -20,6 +21,7 @@ export class WorkspaceSingleComponent implements OnInit {
       this.workspaceId = 0
       this.teamsArray = [];
       this.selectedTeam = 0;
+      this.workspaceName = "";
      }
 
   ngOnInit(): void {

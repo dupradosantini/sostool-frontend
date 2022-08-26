@@ -1,13 +1,25 @@
-<section class="hero is-fullheight">
-
+<section class="hero1 is-small is-primary" *ngIf="this.teamsArray.length>0" >
+  <div class="hero-body">
+    <p class="title">
+      {{this.teamsArray[this.selectedTeam].name}}
+    </p>
+    <div class="buttons">
+      <button class="button is-primary">+ Role</button>
+      <button class="button is-link">+ Responsability</button>
+    </div>
+  </div>
+</section>
+<section class="hero is-medium">
   <div class="hero-body">
     <div class="container has-text-centered" *ngIf="this.teamsArray.length>0">
-      <p class="title">
-        {{this.teamsArray[this.selectedTeam].name}}
+      <p class="subtitle"*ngIf="this.teamsArray[this.selectedTeam].teamAssignedRoles.length <= 0">
+        This is the {{this.teamsArray[this.selectedTeam].name}} team page!
+        <br>
+        It has no roles yet.
       </p>
-      <p class="subtitle">
-        This is the page of this team!
-      </p>
+      <div class="container has-text-centered" *ngIf="this.teamsArray[this.selectedTeam].teamAssignedRoles.length > 0">
+        <app-team-view [teamAssignedRoles]="this.teamsArray[this.selectedTeam].teamAssignedRoles"></app-team-view>
+      </div>
     </div>
     <div class="container has-text-centered" *ngIf="this.teamsArray.length<=0">
       <p class="title">
