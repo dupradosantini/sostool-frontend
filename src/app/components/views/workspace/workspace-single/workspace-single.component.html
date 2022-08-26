@@ -89,10 +89,21 @@
           <input class="input" type="text" placeholder="e.g. Description of a Software Engineer" #roleDesc>
         </div>
       </div>
+
+      <label class="label">Choose a Model Role</label>
+      <div class="select">
+        <select #modelRoleSelection>
+          <option *ngFor="let modelRole of modelRoles;">
+            {{modelRole.name}}
+          </option>
+        </select>
+      </div>
+
+      <button class="button is-link" (click)="copyModelRole(modelRoleSelection.value, roleName, roleDesc)"> Confirm Selection </button>
        <!-- MODAL CONTENT -->
     </section>
     <footer class="modal-card-foot">
-      <button class="button is-link" (click)="createRoleInWorkspace(roleName.value, roleDesc.value, addRoleModal)" >Confirm</button>
+      <button class="button is-link" (click)="createRoleInWorkspace(roleName.value, roleDesc.value, addRoleModal)" >Create Role</button>
       <button class="button is-link is-light" (click)="toggleModal(addRoleModal)" >Cancel</button>
     </footer>
   </div>

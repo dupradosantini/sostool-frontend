@@ -14,6 +14,7 @@ export class WorkspaceSingleComponent implements OnInit {
   teamsArray: Teams[];
   selectedTeam: number;
   workspaceName: String;
+  modelRoles: Roles[] = [];
 
   constructor(private service: WorkspaceService,
     private route: ActivatedRoute,
@@ -29,6 +30,7 @@ export class WorkspaceSingleComponent implements OnInit {
     this.route.params.subscribe(params => this.workspaceId = params['id']);
     console.log(this.workspaceId);
     this.getTeams();
+    this.getModelRoles();
   }
 
   getTeams(): void {
@@ -42,7 +44,17 @@ export class WorkspaceSingleComponent implements OnInit {
     })
   }
 
-  selectTeam(index: number, tabs: Element): void{
+  getModelRoles(): void {
+    this.service.findModelRoles()
+    .subscribe({
+      next: (response) => {
+        this.modelRoles = response;
+        console.log(this.modelRoles);
+      }
+    })
+  }
+
+  selectTeam(index: number, tabs: Element): void {
     this.selectedTeam = index;
     const children = tabs.children;
     for (var i = 0; i < children.length; i++) {
@@ -56,11 +68,11 @@ export class WorkspaceSingleComponent implements OnInit {
     }
   }
 
-  toggleModal(modal: any){
+  toggleModal(modal: any) {
     modal.classList.toggle('is-active');
   }
 
-  createRoleInWorkspace(roleName: string, roleDesc: string, modal: HTMLElement): void{
+  createRoleInWorkspace(roleName: string, roleDesc: string, modal: HTMLElement): void {
 
     const placeholderRole: Roles = {
       id: 0,
@@ -74,6 +86,7 @@ export class WorkspaceSingleComponent implements OnInit {
       next: (response) => {
         console.log("A resposta recebida (sucesso) foi:" + response);
         this.toggleModal(modal);
+        alert("Role Criada com Sucesso");
       },
       error: (response) => {
         console.log(response);
@@ -81,5 +94,18 @@ export class WorkspaceSingleComponent implements OnInit {
       }
     })
   }
+
+  copyModelRole(selectedModel: string, roleNameField: any, roleDescField: any){
+    console.log(selectedModel);
+    roleNameField.value = "Nome de teste";
+    for(let r of this.modelRoles){
+      if(r.name == selectedModel){
+        roleNameField.value = r.name;
+        roleDescField.value = r.description;
+      }
+    }
+  }
+
+
 
 }

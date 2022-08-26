@@ -27,4 +27,9 @@ export class WorkspaceService {
     const url = `${this.baseUrl}/workspace/${id}/businessroles`
     return this.http.post<Roles>(url, roleObj);
   }
+
+  findModelRoles(): Observable<Roles[]> {
+    const url = `${this.baseUrl}/modelrole`
+    return this.http.get<Roles[]>(url);
+  }
 }
