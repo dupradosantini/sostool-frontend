@@ -106,6 +106,8 @@ export class WorkspaceSingleComponent implements OnInit {
     }
   }
 
-
+  assignRoleToTeam(selectedRole: string){
+    //TODO !! Requires workspace role specific GET
+  }
 
 }

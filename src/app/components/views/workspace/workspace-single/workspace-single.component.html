@@ -20,7 +20,7 @@
       {{this.teamsArray[this.selectedTeam].name}}
     </p>
     <div class="buttons">
-      <button class="button is-link">+ Add Role to Team</button>
+      <button class="button is-link" (click)="toggleModal(assignRoleToTeamModal)">+ Add Role to Team</button>
     </div>
   </div>
 </section>
@@ -105,6 +105,34 @@
     <footer class="modal-card-foot">
       <button class="button is-link" (click)="createRoleInWorkspace(roleName.value, roleDesc.value, addRoleModal)" >Create Role</button>
       <button class="button is-link is-light" (click)="toggleModal(addRoleModal)" >Cancel</button>
+    </footer>
+  </div>
+</div>
+
+<!-- MODAL TO ADD SOME ROLE TO A TEAM!-->
+
+<div class="modal is-dark" #assignRoleToTeamModal>
+  <div class="modal-background is-dark"></div>
+  <div class="modal-card is-dark">
+    <header class="modal-card-head is-dark">
+      <p class="modal-card-title">Assign a Role to a Team</p>
+      <button class="delete" aria-label="close" (click)="toggleModal(assignRoleToTeamModal)"></button>
+    </header>
+    <section class="modal-card-body">
+      <!-- MODAL CONTENT -->
+      <label class="label">Choose which role will be assigned </label>
+      <div class="select">
+        <select #RoleSelection>
+          <option *ngFor="let modelRole of modelRoles;">
+            {{modelRole.name}}
+          </option>
+        </select>
+      </div>
+       <!-- MODAL CONTENT -->
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-link"(click)="assignRoleToTeam(RoleSelection.value)">Assign Role</button>
+      <button class="button is-link is-light" (click)="toggleModal(assignRoleToTeamModal)" >Cancel</button>
     </footer>
   </div>
 </div>
