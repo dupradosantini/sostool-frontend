@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Teams } from '../workspace.model';
+import { Roles, Teams } from '../workspace.model';
 import { WorkspaceService } from '../workspace.service';
 
 @Component({
@@ -58,6 +58,28 @@ export class WorkspaceSingleComponent implements OnInit {
 
   toggleModal(modal: any){
     modal.classList.toggle('is-active');
+  }
+
+  createRoleInWorkspace(roleName: string, roleDesc: string, modal: HTMLElement): void{
+
+    const placeholderRole: Roles = {
+      id: 0,
+      name: roleName,
+      description: roleDesc
+    }
+    console.log(placeholderRole);
+
+    this.service.createRoleInWorkspace(this.workspaceId, placeholderRole)
+    .subscribe({
+      next: (response) => {
+        console.log("A resposta recebida (sucesso) foi:" + response);
+        this.toggleModal(modal);
+      },
+      error: (response) => {
+        console.log(response);
+        this.toggleModal(modal);
+      }
+    })
   }
 
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Workspace } from './workspace.model';
+import { Roles, Workspace } from './workspace.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +23,8 @@ export class WorkspaceService {
     return this.http.get<Workspace>(url);
   }
 
-  findWorkspaceTeams(){
-
+  createRoleInWorkspace(id: Number, roleObj: Roles): Observable<Roles> {
+    const url = `${this.baseUrl}/workspace/${id}/businessroles`
+    return this.http.post<Roles>(url, roleObj);
   }
 }

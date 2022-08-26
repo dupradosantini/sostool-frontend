@@ -92,7 +92,7 @@
        <!-- MODAL CONTENT -->
     </section>
     <footer class="modal-card-foot">
-      <button class="button is-link" >Confirm</button>
+      <button class="button is-link" (click)="createRoleInWorkspace(roleName.value, roleDesc.value, addRoleModal)" >Confirm</button>
       <button class="button is-link is-light" (click)="toggleModal(addRoleModal)" >Cancel</button>
     </footer>
   </div>
