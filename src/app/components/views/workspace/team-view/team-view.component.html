@@ -1,8 +1,8 @@
-
-<div class="box" *ngFor="let role of teamAssignedRoles;">
-  <p class="title">
-    {{role.name}}
-  </p>
-  {{role.description}}
+<div class="boxes is-multiline is-mobile">
+  <div class="box is-one-quarter" *ngFor="let role of teamAssignedRoles;">
+    <p class="title">
+      {{role.name}}
+    </p>
+    {{role.description}}
+  </div>
 </div>
-

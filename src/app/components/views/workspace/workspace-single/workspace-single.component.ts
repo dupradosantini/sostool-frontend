@@ -36,6 +36,7 @@ export class WorkspaceSingleComponent implements OnInit {
     .subscribe({
       next: (response) => {
         this.teamsArray = response.teams;
+        this.workspaceName = response.name;
         console.log(this.teamsArray);
       }
     })
@@ -53,6 +54,10 @@ export class WorkspaceSingleComponent implements OnInit {
         tableChild.setAttribute("class","");
       }
     }
+  }
+
+  toggleModal(modal: any){
+    modal.classList.toggle('is-active');
   }
 
 }
