@@ -15,6 +15,7 @@ export class WorkspaceSingleComponent implements OnInit {
   selectedTeam: number;
   workspaceName: String;
   modelRoles: Roles[] = [];
+  workspaceRoles: Roles[] = [];
 
   constructor(private service: WorkspaceService,
     private route: ActivatedRoute,
@@ -54,6 +55,16 @@ export class WorkspaceSingleComponent implements OnInit {
     })
   }
 
+  getWorkspaceRoles(){
+    this.service.findWorkspaceRoles(this.workspaceId)
+    .subscribe({
+      next:(response) => {
+        this.workspaceRoles = response;
+        console.log(this.workspaceRoles);
+      }
+    })
+  }
+
   selectTeam(index: number, tabs: Element): void {
     this.selectedTeam = index;
     const children = tabs.children;
@@ -70,6 +81,7 @@ export class WorkspaceSingleComponent implements OnInit {
 
   toggleModal(modal: any) {
     modal.classList.toggle('is-active');
+    this.getWorkspaceRoles();
   }
 
   createRoleInWorkspace(roleName: string, roleDesc: string, modal: HTMLElement): void {
@@ -106,8 +118,25 @@ export class WorkspaceSingleComponent implements OnInit {
     }
   }
 
-  assignRoleToTeam(selectedRole: string){
-    //TODO !! Requires workspace role specific GET
+  assignRoleToTeam(selectedRole: string, modal: any){
+    this.getWorkspaceRoles();
+    //Gets the Id of the selected role
+    for(let role of this.workspaceRoles){
+      if(role.name = selectedRole){
+        const roleId = role.id;
+        const teamId = this.teamsArray[this.selectedTeam].id;
+        this.service.assignRoleToTeam(this.workspaceId,teamId,roleId)
+        .subscribe({
+          next: (response) => {
+            console.log(response);
+            this.toggleModal(modal);
+            this.ngOnInit();
+          }
+        })
+        break;
+      }
+    }
+
   }
 
 }

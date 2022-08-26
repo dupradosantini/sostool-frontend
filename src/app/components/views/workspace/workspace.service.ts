@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Roles, Workspace } from './workspace.model';
+import { Roles, Teams, Workspace } from './workspace.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,17 +19,27 @@ export class WorkspaceService {
   }
 
   findWorkspaceById(id: Number): Observable<Workspace>{
-    const url = `${this.baseUrl}/workspace/${id}`
+    const url = `${this.baseUrl}/workspace/${id}`;
     return this.http.get<Workspace>(url);
   }
 
   createRoleInWorkspace(id: Number, roleObj: Roles): Observable<Roles> {
-    const url = `${this.baseUrl}/workspace/${id}/businessroles`
+    const url = `${this.baseUrl}/workspace/${id}/businessroles`;
     return this.http.post<Roles>(url, roleObj);
   }
 
   findModelRoles(): Observable<Roles[]> {
-    const url = `${this.baseUrl}/modelrole`
+    const url = `${this.baseUrl}/modelrole`;
     return this.http.get<Roles[]>(url);
+  }
+
+  findWorkspaceRoles(id: Number): Observable<Roles[]> {
+    const url = `${this.baseUrl}/workspace/${id}/businessroles`;
+    return this.http.get<Roles[]>(url);
+  }
+
+  assignRoleToTeam(workspaceId: Number, teamId: Number, roleId: Number): Observable<Teams> {
+    const url = `${this.baseUrl}/workspace/${workspaceId}/teams/${teamId}/roles/${roleId}`;
+    return this.http.put<Teams>(url,null);
   }
 }

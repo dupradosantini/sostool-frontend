@@ -123,15 +123,15 @@
       <label class="label">Choose which role will be assigned </label>
       <div class="select">
         <select #RoleSelection>
-          <option *ngFor="let modelRole of modelRoles;">
-            {{modelRole.name}}
+          <option *ngFor="let role of workspaceRoles;">
+            {{role.name}}
           </option>
         </select>
       </div>
        <!-- MODAL CONTENT -->
     </section>
     <footer class="modal-card-foot">
-      <button class="button is-link"(click)="assignRoleToTeam(RoleSelection.value)">Assign Role</button>
+      <button class="button is-link"(click)="assignRoleToTeam(RoleSelection.value, assignRoleToTeamModal)">Assign Role</button>
       <button class="button is-link is-light" (click)="toggleModal(assignRoleToTeamModal)" >Cancel</button>
     </footer>
   </div>
