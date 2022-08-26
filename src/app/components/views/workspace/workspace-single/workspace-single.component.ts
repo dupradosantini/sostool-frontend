@@ -10,6 +10,7 @@ import { WorkspaceService } from '../workspace.service';
 })
 export class WorkspaceSingleComponent implements OnInit {
 
+  firstLoad: boolean = true;
   workspaceId: Number;
   teamsArray: Teams[];
   selectedTeam: number;
@@ -18,8 +19,7 @@ export class WorkspaceSingleComponent implements OnInit {
   workspaceRoles: Roles[] = [];
 
   constructor(private service: WorkspaceService,
-    private route: ActivatedRoute,
-    private router: Router) {
+    private route: ActivatedRoute) {
       this.workspaceId = 0
       this.teamsArray = [];
       this.selectedTeam = 0;
@@ -66,6 +66,7 @@ export class WorkspaceSingleComponent implements OnInit {
   }
 
   selectTeam(index: number, tabs: Element): void {
+    this.firstLoad = false;
     this.selectedTeam = index;
     const children = tabs.children;
     for (var i = 0; i < children.length; i++) {

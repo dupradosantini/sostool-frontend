@@ -14,7 +14,7 @@
 <hr class="rounded">
 
 <!-- TEAM PAGE  NAME AND BUTTON HERO -->
-<section class="hero1 is-small is-primary" *ngIf="this.teamsArray.length>0" >
+<section class="hero1 is-small is-primary" *ngIf="this.teamsArray.length>0 && !this.firstLoad" >
   <div class="hero-body">
     <p class="title">
       {{this.teamsArray[this.selectedTeam].name}}
@@ -27,7 +27,7 @@
 
 <!-- TEAM TAB HERO -->
 <section class="hero is-medium">
-  <div class="hero-body">
+  <div class="hero-body" *ngIf="!this.firstLoad">
     <div class="container has-text-centered" *ngIf="this.teamsArray.length>0">
       <p class="subtitle"*ngIf="this.teamsArray[this.selectedTeam].teamAssignedRoles.length <= 0">
         This is the {{this.teamsArray[this.selectedTeam].name}} team page!
