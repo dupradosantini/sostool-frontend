@@ -68,6 +68,7 @@ export class WorkspaceSingleComponent implements OnInit {
   selectTeam(index: number, tabs: Element): void {
     this.firstLoad = false;
     this.selectedTeam = index;
+    console.log(this.selectedTeam)
     const children = tabs.children;
     for (var i = 0; i < children.length; i++) {
       var tableChild = children[i];
@@ -82,7 +83,6 @@ export class WorkspaceSingleComponent implements OnInit {
 
   toggleModal(modal: any) {
     modal.classList.toggle('is-active');
-    this.getWorkspaceRoles();
   }
 
   createRoleInWorkspace(roleName: string, roleDesc: string, modal: HTMLElement): void {
@@ -100,6 +100,7 @@ export class WorkspaceSingleComponent implements OnInit {
         console.log("A resposta recebida (sucesso) foi:" + response);
         this.toggleModal(modal);
         alert("Role Criada com Sucesso");
+        this.getWorkspaceRoles();
       },
       error: (response) => {
         console.log(response);
@@ -120,21 +121,20 @@ export class WorkspaceSingleComponent implements OnInit {
   }
 
   assignRoleToTeam(selectedRole: string, modal: any){
-    this.getWorkspaceRoles();
     //Gets the Id of the selected role
     for(let role of this.workspaceRoles){
-      if(role.name = selectedRole){
+      if(role.name === selectedRole){
         const roleId = role.id;
         const teamId = this.teamsArray[this.selectedTeam].id;
         this.service.assignRoleToTeam(this.workspaceId,teamId,roleId)
         .subscribe({
           next: (response) => {
-            console.log(response);
+            //console.log(response);
+            console.log("ANTES DE DAR BO")
             this.toggleModal(modal);
-            this.ngOnInit();
+            this.getTeams();
           }
         })
-        break;
       }
     }
 
