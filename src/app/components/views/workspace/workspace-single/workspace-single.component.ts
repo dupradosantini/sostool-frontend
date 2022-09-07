@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ModelRole } from '../../model-role/model-role.model';
 import { Roles, Teams } from '../workspace.model';
 import { WorkspaceService } from '../workspace.service';
 
@@ -16,6 +17,12 @@ export class WorkspaceSingleComponent implements OnInit {
   selectedTeam: number;
   workspaceName: String;
   modelRoles: Roles[] = [];
+  //This is the default "Other" model role in the back-end.
+  lastSelectedModel: ModelRole = {
+    id: 1,
+    name: "",
+    description:""
+  }
   workspaceRoles: Roles[] = [];
 
   constructor(private service: WorkspaceService,
@@ -90,7 +97,8 @@ export class WorkspaceSingleComponent implements OnInit {
     const placeholderRole: Roles = {
       id: 0,
       name: roleName,
-      description: roleDesc
+      description: roleDesc,
+      parentRole: this.lastSelectedModel
     }
     console.log(placeholderRole);
 
@@ -116,6 +124,10 @@ export class WorkspaceSingleComponent implements OnInit {
       if(r.name == selectedModel){
         roleNameField.value = r.name;
         roleDescField.value = r.description;
+
+        this.lastSelectedModel.id = r.id;
+        this.lastSelectedModel.name = r.name;
+        this.lastSelectedModel.description = r.description;
       }
     }
   }

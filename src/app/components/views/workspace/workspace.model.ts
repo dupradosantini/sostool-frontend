@@ -1,3 +1,5 @@
+import { ModelRole } from "../model-role/model-role.model";
+
 export interface Workspace{
   id: Number;
   name: String;
@@ -15,4 +17,5 @@ export interface Roles{
   id: Number;
   name: String;
   description: String;
+  parentRole: ModelRole;
 }
