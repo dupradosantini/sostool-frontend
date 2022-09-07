@@ -9,6 +9,7 @@ import { HomeComponent } from './components/views/home/home.component';
 import { WorkspaceReadComponent } from './components/views/workspace/workspace-read/workspace-read.component';
 import { WorkspaceSingleComponent } from './components/views/workspace/workspace-single/workspace-single.component';
 import { TeamViewComponent } from './components/views/workspace/team-view/team-view.component';
+import { ModelRoleReadComponent } from './components/views/model-role/model-role-read/model-role-read.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { TeamViewComponent } from './components/views/workspace/team-view/team-v
     HomeComponent,
     WorkspaceReadComponent,
     WorkspaceSingleComponent,
-    TeamViewComponent
+    TeamViewComponent,
+    ModelRoleReadComponent
   ],
   imports: [
     BrowserModule,
