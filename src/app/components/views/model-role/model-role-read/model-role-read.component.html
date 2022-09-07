@@ -3,8 +3,7 @@
      <h1 class="title"> List of all Model Roles that are available: </h1>
      <div class="content">
       <ul>
-        <li> Model Role 1</li>
-        <li> Model Role 2</li>
+        <li *ngFor="let role of modelRoleArray"> {{role.name}} </li>
       </ul>
     </div>
     <button class="button is-primary">Add new Model Role</button>
