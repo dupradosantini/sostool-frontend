@@ -30,4 +30,33 @@ export class ModelRoleReadComponent implements OnInit {
     })
   }
 
+  createNewModelRole(roleName: string, roleDesc: string, modal: HTMLElement): void {
+
+    const newObj: ModelRole = {
+      id: 0,
+      name: roleName,
+      description: roleDesc
+    }
+
+    this.service.createNewModelRole(newObj)
+    .subscribe({
+      next: (response) => {
+        console.log(response);
+        this.toggleModal(modal);
+        alert("ModelRole created succesfully!");
+        this.modelRoleArray.push(newObj);
+      },
+      error: (errorResp) => {
+        console.log(errorResp);
+        this.toggleModal(modal);
+        alert("Failure creating ModelRole");
+      }
+    })
+
+  }
+
+  toggleModal(modal: any) {
+    modal.classList.toggle('is-active');
+  }
+
 }

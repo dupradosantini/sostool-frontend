@@ -6,6 +6,40 @@
         <li *ngFor="let role of modelRoleArray"> {{role.name}} </li>
       </ul>
     </div>
-    <button class="button is-primary">Add new Model Role</button>
+    <button class="button is-primary" (click)="toggleModal(createModelRoleModal)" >Add new Model Role</button>
+  </div>
+</div>
+
+
+<!-- MODAL TO CREATE A NEW MODEL ROLE !-->
+
+<div class="modal is-dark" #createModelRoleModal>
+  <div class="modal-background is-dark"></div>
+  <div class="modal-card is-dark">
+    <header class="modal-card-head is-dark">
+      <p class="modal-card-title">Create new Model Role</p>
+      <button class="delete" aria-label="close" (click)="toggleModal(createModelRoleModal)"></button>
+    </header>
+    <section class="modal-card-body">
+      <!-- MODAL CONTENT -->
+      <div class="field">
+        <label class="label">Name</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="e.g Software Engineer" #roleName>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Description</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="e.g. Description of a Software Engineer" #roleDesc>
+        </div>
+      </div>
+      <!-- MODAL CONTENT -->
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-link"(click)="createNewModelRole(roleName.value, roleDesc.value, createModelRoleModal)"> Create </button>
+      <button class="button is-link is-light" (click)="toggleModal(createModelRoleModal)"> Cancel </button>
+    </footer>
   </div>
 </div>
