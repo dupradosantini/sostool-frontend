@@ -35,7 +35,8 @@ export class ModelRoleReadComponent implements OnInit {
     const newObj: ModelRole = {
       id: 0,
       name: roleName,
-      description: roleDesc
+      description: roleDesc,
+      sonRoles: []
     }
 
     this.service.createNewModelRole(newObj)

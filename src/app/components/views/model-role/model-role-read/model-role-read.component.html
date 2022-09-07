@@ -2,9 +2,12 @@
   <div class="hero-body">
      <h1 class="title"> List of all Model Roles that are available: </h1>
      <div class="content">
-      <ul>
-        <li *ngFor="let role of modelRoleArray"> {{role.name}} </li>
-      </ul>
+      <div class="modelRoleElement" *ngFor="let role of modelRoleArray">
+        <li> {{role.name}} </li>
+        <p class="howManyText">
+          used in: <span class="howManyNumber"> {{role.sonRoles?.length}} </span> project roles
+        </p>
+      </div>
     </div>
     <button class="button is-primary" (click)="toggleModal(createModelRoleModal)" >Add new Model Role</button>
   </div>
