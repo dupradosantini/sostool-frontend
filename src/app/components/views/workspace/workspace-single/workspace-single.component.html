@@ -47,6 +47,9 @@
       </p>
     </div>
   </div>
+  <div class="hero-body" *ngIf="this.firstLoad">
+    <p class="title"> Team Selection : </p>
+  </div>
   <!-- TABS -->
   <div class="hero-foot">
     <nav class="tabs is-centered is-boxed is-medium">
@@ -131,7 +134,7 @@
        <!-- MODAL CONTENT -->
     </section>
     <footer class="modal-card-foot">
-      <button class="button is-link"(click)="assignRoleToTeam(RoleSelection.value, assignRoleToTeamModal)">Assign Role</button>
+      <button class="button is-link"(click)="assignRoleToTeam(RoleSelection.value, assignRoleToTeamModal, tabs)">Assign Role</button>
       <button class="button is-link is-light" (click)="toggleModal(assignRoleToTeamModal)" >Cancel</button>
     </footer>
   </div>

@@ -14,7 +14,6 @@ export class TeamViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.teamAssignedRoles.sort(this.compare);
-    console.log(this.teamAssignedRoles);
   }
 
 

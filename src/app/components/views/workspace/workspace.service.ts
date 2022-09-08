@@ -38,8 +38,8 @@ export class WorkspaceService {
     return this.http.get<Roles[]>(url);
   }
 
-  assignRoleToTeam(workspaceId: Number, teamId: Number, roleId: Number): Observable<Teams> {
+  assignRoleToTeam(workspaceId: Number, teamId: Number, roleId: Number): Observable<Teams[]> {
     const url = `${this.baseUrl}/workspace/${workspaceId}/teams/${teamId}/roles/${roleId}`;
-    return this.http.put<Teams>(url,null);
+    return this.http.put<Teams[]>(url,null);
   }
 }

@@ -25,7 +25,8 @@ export class WorkspaceSingleComponent implements OnInit {
   }
   workspaceRoles: Roles[] = [];
 
-  constructor(private service: WorkspaceService,
+  constructor(
+    private service: WorkspaceService,
     private route: ActivatedRoute) {
       this.workspaceId = 0
       this.teamsArray = [];
@@ -36,7 +37,6 @@ export class WorkspaceSingleComponent implements OnInit {
   ngOnInit(): void {
     //Extrair o id da url
     this.route.params.subscribe(params => this.workspaceId = params['id']);
-    console.log(this.workspaceId);
     this.getTeams();
     this.getModelRoles();
   }
@@ -47,7 +47,6 @@ export class WorkspaceSingleComponent implements OnInit {
       next: (response) => {
         this.teamsArray = response.teams;
         this.workspaceName = response.name;
-        console.log(this.teamsArray);
       }
     })
   }
@@ -57,7 +56,6 @@ export class WorkspaceSingleComponent implements OnInit {
     .subscribe({
       next: (response) => {
         this.modelRoles = response;
-        console.log(this.modelRoles);
       }
     })
   }
@@ -67,7 +65,6 @@ export class WorkspaceSingleComponent implements OnInit {
     .subscribe({
       next:(response) => {
         this.workspaceRoles = response;
-        console.log(this.workspaceRoles);
       }
     })
   }
@@ -75,12 +72,12 @@ export class WorkspaceSingleComponent implements OnInit {
   selectTeam(index: number, tabs: Element): void {
     this.firstLoad = false;
     this.selectedTeam = index;
-    console.log(this.selectedTeam)
     const children = tabs.children;
-    for (var i = 0; i < children.length; i++) {
-      var tableChild = children[i];
+    this.getWorkspaceRoles();
+    for (let i = 0; i < children.length; i++) {
+      let tableChild = children[i];
       // Do stuff
-      if(i === index){
+      if(i == index){
         tableChild.setAttribute("class","is-active");
       }else{
         tableChild.setAttribute("class","");
@@ -132,19 +129,22 @@ export class WorkspaceSingleComponent implements OnInit {
     }
   }
 
-  assignRoleToTeam(selectedRole: string, modal: any){
+  assignRoleToTeam(selectedRole: string, modal: Element, tabs: Element){
     //Gets the Id of the selected role
     for(let role of this.workspaceRoles){
       if(role.name === selectedRole){
         const roleId = role.id;
         const teamId = this.teamsArray[this.selectedTeam].id;
-        this.service.assignRoleToTeam(this.workspaceId,teamId,roleId)
+        this.service.assignRoleToTeam(this.workspaceId, teamId, roleId)
         .subscribe({
           next: (response) => {
-            //console.log(response);
-            console.log("ANTES DE DAR BO")
+            console.log(response);
+            this.teamsArray[this.selectedTeam].teamAssignedRoles.push(role);
             this.toggleModal(modal);
-            this.getTeams();
+          },
+          error: (errorResponse) => {
+            console.log(errorResponse);
+            alert(errorResponse.error.message);
           }
         })
       }
