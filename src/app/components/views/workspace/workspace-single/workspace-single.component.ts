@@ -115,7 +115,7 @@ export class WorkspaceSingleComponent implements OnInit {
   }
 
   copyModelRole(selectedModel: string, roleNameField: HTMLInputElement, roleDescField: any){
-    
+
     for(let r of this.modelRoles){
       if(r.name == selectedModel){
         roleNameField.value = r.name;

@@ -52,4 +52,9 @@ export class WorkspaceService {
     const url = `${this.baseUrl}/workspace/${workspaceId}/teams/${teamId}`;
     return this.http.delete<void>(url);
   }
+
+  createWorkspace(workspace: Workspace): Observable<Workspace> {
+    const url = `${this.baseUrl}/workspace`;
+    return this.http.post<Workspace>(url, workspace);
+  }
 }

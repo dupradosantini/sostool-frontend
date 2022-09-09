@@ -2,7 +2,7 @@
    <div class="hero-body">
      <div class="container has-text-centered">
       <h1 class="title"> Available Workspaces </h1>
-      <button class="button is-link">+ Create Workspace</button>
+      <button class="button is-link" (click)="toggleModal(createWorkspaceModal)">+ Create Workspace</button>
        <!--  CARD  -->
       <section class="cards"*ngIf=" workspaceArray.length > 0 ">
           <div class="card" *ngFor="let workspace of workspaceArray; let i = index" (click)="goToWorkspace(workspace.id)">
@@ -33,3 +33,37 @@
      </div>
    </div>
  </div>
+
+
+
+ <!--Create a new workspace modal-->
+ <div class="modal is-dark" #createWorkspaceModal>
+  <div class="modal-background is-dark"></div>
+  <div class="modal-card is-dark">
+    <header class="modal-card-head is-dark">
+      <p class="modal-card-title">Create a new workspace!</p>
+      <button class="delete" aria-label="close" (click)="toggleModal(createWorkspaceModal)"></button>
+    </header>
+    <section class="modal-card-body">
+      <!-- MODAL CONTENT -->
+      <div class="field">
+        <label class="label">Name</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="e.g My new SoS" #workspaceName>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Description</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="e.g. Description of an SoS" #workspaceDesc>
+        </div>
+      </div>
+       <!-- MODAL CONTENT -->
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-link" (click)="createWorkspace(workspaceName.value, workspaceDesc.value, createWorkspaceModal)" >Create Workspace</button>
+      <button class="button is-link is-light" (click)="toggleModal(createWorkspaceModal)" >Cancel</button>
+    </footer>
+  </div>
+</div>
