@@ -21,6 +21,7 @@
     </p>
     <div class="buttons">
       <button class="button is-link" (click)="toggleModal(assignRoleToTeamModal)">+ Add Role to Team</button>
+      <button class="button is-danger" (click)="deleteTeamInWorkspace(this.teamsArray[this.selectedTeam].id)">Delete Team</button>
     </div>
   </div>
 </section>
@@ -58,7 +59,7 @@
           <li class="tab" *ngFor="let team of teamsArray; let i = index;" (click)="selectTeam(i,tabs)">
             <a class="names">{{team.name}}</a>
           </li>
-          <li class="add-team-tab">
+          <li class="add-team-tab" (click)="toggleModal(addTeamModal)">
             <a>
               <span> + Add Team </span>
             </a>
@@ -113,7 +114,6 @@
 </div>
 
 <!-- MODAL TO ADD SOME ROLE TO A TEAM!-->
-
 <div class="modal is-dark" #assignRoleToTeamModal>
   <div class="modal-background is-dark"></div>
   <div class="modal-card is-dark">
@@ -139,3 +139,30 @@
     </footer>
   </div>
 </div>
+
+<!-- MODAL TO CREATE A NEW TEAM IN THIS WORKSPACE -->
+<div class="modal is-dark" #addTeamModal>
+  <div class="modal-background is-dark"></div>
+  <div class="modal-card is-dark">
+    <header class="modal-card-head is-dark">
+      <p class="modal-card-title">Add New Team</p>
+      <button class="delete" aria-label="close" (click)="toggleModal(addTeamModal)"></button>
+    </header>
+    <section class="modal-card-body">
+      <!-- MODAL CONTENT -->
+      <div class="field">
+        <label class="label">Name</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="e.g Software Engineer" #teamName>
+        </div>
+      </div>
+       <!-- MODAL CONTENT -->
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-link" (click)="createTeamInWorkspace(teamName.value, addTeamModal)" >Create Team</button>
+      <button class="button is-link is-light" (click)="toggleModal(addTeamModal)">Cancel</button>
+    </footer>
+  </div>
+</div>
+
+

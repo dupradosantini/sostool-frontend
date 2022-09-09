@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ModelRole } from '../../model-role/model-role.model';
 import { Roles, Teams } from '../workspace.model';
 import { WorkspaceService } from '../workspace.service';
@@ -85,7 +85,7 @@ export class WorkspaceSingleComponent implements OnInit {
     }
   }
 
-  toggleModal(modal: any) {
+  toggleModal(modal: Element) {
     modal.classList.toggle('is-active');
   }
 
@@ -114,9 +114,8 @@ export class WorkspaceSingleComponent implements OnInit {
     })
   }
 
-  copyModelRole(selectedModel: string, roleNameField: any, roleDescField: any){
-    console.log(selectedModel);
-    roleNameField.value = "Nome de teste";
+  copyModelRole(selectedModel: string, roleNameField: HTMLInputElement, roleDescField: any){
+    
     for(let r of this.modelRoles){
       if(r.name == selectedModel){
         roleNameField.value = r.name;
@@ -144,12 +143,48 @@ export class WorkspaceSingleComponent implements OnInit {
           },
           error: (errorResponse) => {
             console.log(errorResponse);
-            alert(errorResponse.error.message);
+            alert("Role assignment failed!");
           }
         })
       }
     }
 
+  }
+
+  createTeamInWorkspace(teamName: string, modal: Element): void{
+
+    const placeholderTeam: Teams = {
+      id: 0,
+      name: teamName,
+      teamAssignedRoles: []
+    }
+
+    this.service.createTeamInWorkspace(this.workspaceId, placeholderTeam)
+    .subscribe({
+      next: (response) => {
+        this.teamsArray.push(response);
+        this.toggleModal(modal);
+      },
+      error: (errorResponse) => {
+        alert("Team Creation Failed!");
+      }
+    })
+  }
+
+  deleteTeamInWorkspace(teamId: Number): void{
+    this.service.deleteTeamInWorkspace(this.workspaceId,teamId)
+    .subscribe({
+      next: (response) => {
+        this.teamsArray = [];
+        this.selectedTeam = 0;
+        this.firstLoad = true;
+        alert("Team deleted!");
+        this.getTeams();
+      },
+      error: (errorResponse) => {
+        alert("Team Deletion Failed!");
+      }
+    })
   }
 
 }

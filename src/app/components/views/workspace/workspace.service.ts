@@ -42,4 +42,14 @@ export class WorkspaceService {
     const url = `${this.baseUrl}/workspace/${workspaceId}/teams/${teamId}/roles/${roleId}`;
     return this.http.put<Teams[]>(url,null);
   }
+
+  createTeamInWorkspace(workspaceId: Number, team: Teams): Observable<Teams>{
+    const url = `${this.baseUrl}/workspace/${workspaceId}/teams`;
+    return this.http.post<Teams>(url,team);
+  }
+
+  deleteTeamInWorkspace(workspaceId: Number, teamId: Number): Observable<void>{
+    const url = `${this.baseUrl}/workspace/${workspaceId}/teams/${teamId}`;
+    return this.http.delete<void>(url);
+  }
 }

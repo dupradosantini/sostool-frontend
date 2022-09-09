@@ -15,7 +15,7 @@ export interface Teams{
 
 export interface Roles{
   id: Number;
-  name: String;
+  name: string;
   description: String;
   parentRole: ModelRole;
 }
