@@ -1,5 +1,5 @@
 <!-- WORKSPACE NAME HERO -->
-<section class="hero-workspace is-small is-primary" *ngIf="this.teamsArray.length>0" >
+<section class="hero-workspace is-small is-primary">
   <div class="hero-body">
     <p class="title">
       {{this.workspaceName}}
@@ -27,7 +27,7 @@
 </section>
 
 <!-- TEAM TAB HERO -->
-<section class="hero is-medium">
+<section class="hero is-fullheight">
   <div class="hero-body" *ngIf="!this.firstLoad">
     <div class="container has-text-centered" *ngIf="this.teamsArray.length>0">
       <p class="subtitle"*ngIf="this.teamsArray[this.selectedTeam].teamAssignedRoles.length <= 0">
@@ -48,9 +48,18 @@
       </p>
     </div>
   </div>
+
+
   <div class="hero-body" *ngIf="this.firstLoad">
-    <p class="title"> Team Selection : </p>
+    <div class="container has-text-centered">
+      <p class="title" *ngIf="this.teamsArray.length<=0"> This workspace has no teams yet! </p>
+      <p class="subtitle" *ngIf="this.teamsArray.length<=0"> You should start by creating one with the button below</p>
+      <p class="title" *ngIf="this.teamsArray.length>0"> No team selected!</p>
+      <p class="subtitle" *ngIf="this.teamsArray.length>0"> You can select one of the options below</p>
+    </div>
   </div>
+
+
   <!-- TABS -->
   <div class="hero-foot">
     <nav class="tabs is-centered is-boxed is-medium">
