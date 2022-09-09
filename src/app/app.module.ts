@@ -10,6 +10,7 @@ import { WorkspaceReadComponent } from './components/views/workspace/workspace-r
 import { WorkspaceSingleComponent } from './components/views/workspace/workspace-single/workspace-single.component';
 import { TeamViewComponent } from './components/views/workspace/team-view/team-view.component';
 import { ModelRoleReadComponent } from './components/views/model-role/model-role-read/model-role-read.component';
+import { FooterComponent } from './components/template/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ModelRoleReadComponent } from './components/views/model-role/model-role
     WorkspaceReadComponent,
     WorkspaceSingleComponent,
     TeamViewComponent,
-    ModelRoleReadComponent
+    ModelRoleReadComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
