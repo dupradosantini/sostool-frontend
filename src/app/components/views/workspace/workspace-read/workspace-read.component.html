@@ -2,6 +2,7 @@
    <div class="hero-body">
      <div class="container has-text-centered">
       <h1 class="title"> Available Workspaces </h1>
+      <button class="button is-link">+ Create Workspace</button>
        <!--  CARD  -->
       <section class="cards"*ngIf=" workspaceArray.length > 0 ">
           <div class="card" *ngFor="let workspace of workspaceArray; let i = index" (click)="goToWorkspace(workspace.id)">
