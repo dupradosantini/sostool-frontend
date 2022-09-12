@@ -23,6 +23,11 @@ export class WorkspaceService {
     return this.http.get<Workspace>(url);
   }
 
+  findRolesInMoreThanOneTeam(workspaceId: Number): Observable<Roles[]>{
+    const url = `${this.baseUrl}/workspace/${workspaceId}/roles-in-many-teams`;
+    return this.http.get<Roles[]>(url);
+  }
+
   createRoleInWorkspace(id: Number, roleObj: Roles): Observable<Roles> {
     const url = `${this.baseUrl}/workspace/${id}/businessroles`;
     return this.http.post<Roles>(url, roleObj);

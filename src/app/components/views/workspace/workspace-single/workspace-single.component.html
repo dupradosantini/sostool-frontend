@@ -7,14 +7,14 @@
     <div class="buttons">
       <button class="button is-primary" (click)="toggleModal(addRoleModal)">+ Create Role</button>
       <button class="button is-primary">+ Create Responsability</button>
-      <button class="button is-primary">View Roles</button>
+      <button class="button is-primary" (click)="getRolesInMoreThanOneTeam(viewRolesModal)">View Roles</button>
     </div>
   </div>
 </section>
 <hr class="rounded">
 
 <!-- TEAM PAGE  NAME AND BUTTON HERO -->
-<section class="hero1 is-small is-primary" *ngIf="this.teamsArray.length>0 && !this.firstLoad" >
+<section class="heroTeamName is-small is-primary" *ngIf="this.teamsArray.length>0 && !this.firstLoad" >
   <div class="hero-body">
     <p class="title">
       {{this.teamsArray[this.selectedTeam].name}}
@@ -35,6 +35,44 @@
         <br>
         It has no roles yet.
       </p>
+
+<!-- ASIDE MENU -->
+<!-- <aside class="menu">
+  <p class="menu-label">
+    Project Management
+  </p>
+  <ul class="menu-list">
+    <li><a>Create Role</a></li>
+    <li><a>Create Responsability</a></li>
+    <li><a>View created Roles</a></li>
+  </ul>
+  <p class="menu-label">
+    Team Management
+  </p>
+  <ul class="menu-list">
+    <li><a>Team Settings</a></li>
+    <li>
+      <a class="is-active">Manage Your Team</a>
+      <ul>
+        <li><a>Members</a></li>
+        <li><a>Plugins</a></li>
+        <li><a>Add a member</a></li>
+      </ul>
+    </li>
+    <li><a>Invitations</a></li>
+    <li><a>Cloud Storage Environment Settings</a></li>
+    <li><a>Authentication</a></li>
+  </ul>
+  <p class="menu-label">
+    Transactions
+  </p>
+  <ul class="menu-list">
+    <li><a>Payments</a></li>
+    <li><a>Transfers</a></li>
+    <li><a>Balance</a></li>
+  </ul>
+</aside> -->
+
       <div class="container has-text-centered" *ngIf="this.teamsArray[this.selectedTeam].teamAssignedRoles.length > 0">
         <app-team-view [teamAssignedRoles]="this.teamsArray[this.selectedTeam].teamAssignedRoles"></app-team-view>
       </div>
@@ -174,4 +212,31 @@
   </div>
 </div>
 
+<!--MODAL TO VIEW ROLES IN WORKSPACE-->
+<div class="modal is-dark" #viewRolesModal>
+  <div class="modal-background is-dark"></div>
+  <div class="modal-card is-dark">
+    <header class="modal-card-head is-dark">
+      <p class="modal-card-title">Roles in this Workspace</p>
+      <button class="delete" aria-label="close" (click)="toggleModal(viewRolesModal)"></button>
+    </header>
+    <section class="modal-card-body">
+      <!-- MODAL CONTENT -->
+      <div class="viewRoles">
+        <h1> List of Roles: </h1>
+        <div class="listRoleElement" *ngFor="let role of workspaceRoles">
+          <li> {{role.name}} </li>
+        </div>
+        <h1> Roles in more than one team: </h1>
+        <div class="listRoleInMany" *ngFor="let role of rolesInMany">
+          <li> {{role.name}} </li>
+        </div>
+      </div>
+       <!-- MODAL CONTENT -->
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-link is-light" (click)="toggleModal(viewRolesModal)">Close</button>
+    </footer>
+  </div>
+</div>
 

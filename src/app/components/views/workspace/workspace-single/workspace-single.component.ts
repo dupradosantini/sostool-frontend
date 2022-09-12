@@ -24,6 +24,7 @@ export class WorkspaceSingleComponent implements OnInit {
     description:""
   }
   workspaceRoles: Roles[] = [];
+  rolesInMany: Roles[] = [];
 
   constructor(
     private service: WorkspaceService,
@@ -39,6 +40,7 @@ export class WorkspaceSingleComponent implements OnInit {
     this.route.params.subscribe(params => this.workspaceId = params['id']);
     this.getTeams();
     this.getModelRoles();
+    this.getWorkspaceRoles();
   }
 
   getTeams(): void {
@@ -65,6 +67,21 @@ export class WorkspaceSingleComponent implements OnInit {
     .subscribe({
       next:(response) => {
         this.workspaceRoles = response;
+      }
+    })
+  }
+
+  getRolesInMoreThanOneTeam(modal: Element) :void {
+
+    this.toggleModal(modal);
+
+    this.service.findRolesInMoreThanOneTeam(this.workspaceId)
+    .subscribe({
+      next: (response) => {
+        this.rolesInMany = response;
+      },
+      error: (errorResponse) => {
+        alert("Error fecthing roles in many teams!");
       }
     })
   }
