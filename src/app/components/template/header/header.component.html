@@ -18,9 +18,19 @@
       <a class="navbar-item" routerLink="workspaces">
         Workspaces
       </a>
-      <a class="navbar-item" routerLink="model-roles">
-        Model-Roles
-      </a>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Models
+        </a>
+        <div class="navbar-dropdown is-boxed">
+          <a class="navbar-item" routerLink="model-roles">
+            Model-Roles
+          </a>
+          <a class="navbar-item" routerLink="model-responsibility">
+            Model-Responsibilities
+          </a>
+        </div>
+      </div>
       <div class="navbar-item has-dropdown is-hoverable">
         <a class="navbar-link">
           Docs 📄
