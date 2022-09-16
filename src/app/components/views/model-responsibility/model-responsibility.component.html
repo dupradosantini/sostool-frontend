@@ -1,1 +1,14 @@
-<p>model-responsibility works!</p>
+<div class="hero">
+  <div class="hero-body">
+     <h1 class="title"> List of all Model Responsibilities that are available: </h1>
+     <div class="content">
+      <div class="modelResponsibilityElement" *ngFor="let responsibility of modelResponsibilityArray">
+        <li> {{responsibility.description}} </li>
+        <p class="howManyText">
+          used in: <span class="howManyNumber"> {{responsibility.sonResponsibilities?.length}} </span> project roles
+        </p>
+      </div>
+    </div>
+    <button class="button is-primary">Add new Model Responsibility</button>
+  </div>
+</div>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModelResponsibility } from './model-responsibility.model';
+import { ModelResponsibilityService } from './model-responsibility.service';
 
 @Component({
   selector: 'app-model-responsibility',
@@ -7,9 +9,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModelResponsibilityComponent implements OnInit {
 
-  constructor() { }
+  modelResponsibilityArray: ModelResponsibility[] =[];
+
+  constructor(private service: ModelResponsibilityService) { }
 
   ngOnInit(): void {
+    this.getModelResponsibilities();
   }
+
+
+  getModelResponsibilities(): void {
+    this.service.findAllModelResponsibilities()
+    .subscribe({
+      next: (response) => {
+        this.modelResponsibilityArray = response;
+        console.log(this.modelResponsibilityArray);
+      },
+      error: (errorResponse) => {
+        console.log(errorResponse);
+      }
+    })
+  }
+
+
 
 }
