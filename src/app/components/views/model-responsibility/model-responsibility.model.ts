@@ -8,5 +8,5 @@ export interface ModelResponsibility{
 export interface Responsibility{
   id: Number,
   description: String,
-  parentRole: ModelResponsibility;
+  parentResponsibility: ModelResponsibility;
 }

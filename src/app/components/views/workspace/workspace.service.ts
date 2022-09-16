@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Roles, Teams, Workspace } from './workspace.model';
+import { Responsibility } from '../model-responsibility/model-responsibility.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,11 @@ export class WorkspaceService {
     return this.http.post<Roles>(url, roleObj);
   }
 
+  createResponsibilityInWorkspace(id: Number, responsibilityObj: Responsibility): Observable<Responsibility> {
+    const url = `${this.baseUrl}/workspace/${id}/business-responsibilities`;
+    return this.http.post<Responsibility>(url,responsibilityObj);
+  }
+
   findModelRoles(): Observable<Roles[]> {
     const url = `${this.baseUrl}/modelrole`;
     return this.http.get<Roles[]>(url);
@@ -41,6 +47,11 @@ export class WorkspaceService {
   findWorkspaceRoles(id: Number): Observable<Roles[]> {
     const url = `${this.baseUrl}/workspace/${id}/businessroles`;
     return this.http.get<Roles[]>(url);
+  }
+
+  findWorkspaceResponsibilities(id: Number): Observable<Responsibility[]> {
+    const url = `${this.baseUrl}/workspace/${id}/business-responsibilities`;
+    return this.http.get<Responsibility[]>(url);
   }
 
   assignRoleToTeam(workspaceId: Number, teamId: Number, roleId: Number): Observable<Teams[]> {

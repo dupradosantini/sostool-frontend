@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ModelResponsibility, Responsibility } from '../../model-responsibility/model-responsibility.model';
+import { ModelResponsibilityService } from '../../model-responsibility/model-responsibility.service';
 import { ModelRole } from '../../model-role/model-role.model';
 import { Roles, Teams } from '../workspace.model';
 import { WorkspaceService } from '../workspace.service';
@@ -17,17 +19,26 @@ export class WorkspaceSingleComponent implements OnInit {
   selectedTeam: number;
   workspaceName: String;
   modelRoles: Roles[] = [];
+  modelResponsibilities: ModelResponsibility[] = [];
   //This is the default "Other" model role in the back-end.
   lastSelectedModel: ModelRole = {
     id: 1,
     name: "",
     description:""
   }
+
+  lastSelectedModelResponsibility: ModelResponsibility = {
+    id:1,
+    description:""
+  }
+
   workspaceRoles: Roles[] = [];
+  workspaceResponsibilities: Responsibility[] = [];
   rolesInMany: Roles[] = [];
 
   constructor(
     private service: WorkspaceService,
+    private respService: ModelResponsibilityService,
     private route: ActivatedRoute) {
       this.workspaceId = 0
       this.teamsArray = [];
@@ -40,6 +51,7 @@ export class WorkspaceSingleComponent implements OnInit {
     this.route.params.subscribe(params => this.workspaceId = params['id']);
     this.getTeams();
     this.getModelRoles();
+    this.getModelResponsibilities();
     this.getWorkspaceRoles();
   }
 
@@ -62,6 +74,15 @@ export class WorkspaceSingleComponent implements OnInit {
     })
   }
 
+  getModelResponsibilities(): void {
+    this.respService.findAllModelResponsibilities()
+    .subscribe({
+      next: (response) => {
+        this.modelResponsibilities = response;
+      }
+    })
+  }
+
   getWorkspaceRoles(){
     this.service.findWorkspaceRoles(this.workspaceId)
     .subscribe({
@@ -69,6 +90,17 @@ export class WorkspaceSingleComponent implements OnInit {
         this.workspaceRoles = response;
       }
     })
+  }
+
+  getWorkspaceResponsibilities(modal: Element){
+    this.service.findWorkspaceResponsibilities(this.workspaceId)
+    .subscribe({
+      next: (response) => {
+        this.workspaceResponsibilities = response;
+      }
+    })
+
+    this.toggleModal(modal);
   }
 
   getRolesInMoreThanOneTeam(modal: Element) :void {
@@ -131,6 +163,32 @@ export class WorkspaceSingleComponent implements OnInit {
     })
   }
 
+  createResponsibilityInWorkspace(responsibilityDescription: String, modal: HTMLElement): void{
+
+    const placeholderResponsibility : Responsibility = {
+      id: 0,
+      description: responsibilityDescription,
+      parentResponsibility: this.lastSelectedModelResponsibility
+    }
+
+    this.service.createResponsibilityInWorkspace(this.workspaceId, placeholderResponsibility)
+    .subscribe({
+      next: (response) => {
+        console.log("A resposta recebida (sucesso) foi:");
+        console.log(response);
+        this.toggleModal(modal);
+        alert("Responsibility Criada com Sucesso");
+        this.getWorkspaceRoles();
+      },
+      error: (response) => {
+        console.log(response);
+        this.toggleModal(modal);
+      }
+    })
+
+  }
+
+
   copyModelRole(selectedModel: string, roleNameField: HTMLInputElement, roleDescField: any){
 
     for(let r of this.modelRoles){
@@ -141,6 +199,17 @@ export class WorkspaceSingleComponent implements OnInit {
         this.lastSelectedModel.id = r.id;
         this.lastSelectedModel.name = r.name;
         this.lastSelectedModel.description = r.description;
+      }
+    }
+  }
+
+  copyModelResponsibility(selectedModel: string, responsibilityDescField: HTMLInputElement){
+
+    for(let r of this.modelResponsibilities){
+      if(r.description == selectedModel){
+        responsibilityDescField.value = r.description.toString();
+        this.lastSelectedModelResponsibility.id = r.id;
+        this.lastSelectedModelResponsibility.description = r.description;
       }
     }
   }
