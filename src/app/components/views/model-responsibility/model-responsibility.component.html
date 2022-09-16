@@ -5,10 +5,35 @@
       <div class="modelResponsibilityElement" *ngFor="let responsibility of modelResponsibilityArray">
         <li> {{responsibility.description}} </li>
         <p class="howManyText">
-          used in: <span class="howManyNumber"> {{responsibility.sonResponsibilities?.length}} </span> project roles
+          used in: <span class="howManyNumber"> {{responsibility.sonResponsibilities?.length}} </span> project responsibilities
         </p>
       </div>
     </div>
-    <button class="button is-primary">Add new Model Responsibility</button>
+    <button class="button is-primary" (click)="toggleModal(createModelResponsibilityModal)">Add new Model Responsibility</button>
+  </div>
+</div>
+
+<!-- MODAL TO CREATE A NEW MODEL RESPONSIBILITY !-->
+<div class="modal is-dark" #createModelResponsibilityModal>
+  <div class="modal-background is-dark"></div>
+  <div class="modal-card is-dark">
+    <header class="modal-card-head is-dark">
+      <p class="modal-card-title">Create new Model Responsibility</p>
+      <button class="delete" aria-label="close" (click)="toggleModal(createModelResponsibilityModal)"></button>
+    </header>
+    <section class="modal-card-body">
+      <!-- MODAL CONTENT -->
+      <div class="field">
+        <label class="label">Description</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="e.g. Description of a Software Engineer" #ResponsibilityDesc>
+        </div>
+      </div>
+      <!-- MODAL CONTENT -->
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-link"(click)="createNewModelResponsibility(ResponsibilityDesc.value, createModelResponsibilityModal)"> Create </button>
+      <button class="button is-link is-light" (click)="toggleModal(createModelResponsibilityModal)"> Cancel </button>
+    </footer>
   </div>
 </div>

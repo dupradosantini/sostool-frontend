@@ -31,6 +31,35 @@ export class ModelResponsibilityComponent implements OnInit {
     })
   }
 
+  createNewModelResponsibility( responsibilityDesc: String, modal: HTMLElement): void {
+
+    const newObj: ModelResponsibility = {
+      id: 0,
+      description: responsibilityDesc,
+      sonResponsibilities: []
+    }
+
+    this.service.createNewModelResponsibility(newObj)
+    .subscribe({
+      next: (response) => {
+        console.log(response);
+        this.toggleModal(modal);
+        alert("ModelResponsibility created succesfully!");
+        this.modelResponsibilityArray.push(newObj);
+      },
+      error: (errorResp) => {
+        console.log(errorResp);
+        this.toggleModal(modal);
+        alert("Failure creating ModelResponsibility");
+      }
+    })
+
+  }
+
+  toggleModal(modal: any) {
+    modal.classList.toggle('is-active');
+  }
+
 
 
 }

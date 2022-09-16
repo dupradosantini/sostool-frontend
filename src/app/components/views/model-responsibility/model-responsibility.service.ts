@@ -17,4 +17,9 @@ export class ModelResponsibilityService {
     const url = `${this.baseUrl}/model-responsibility`;
     return this.http.get<ModelResponsibility[]>(url);
   }
+
+  createNewModelResponsibility(newModelResponsibility: ModelResponsibility): Observable<ModelResponsibility> {
+    const url = `${this.baseUrl}/model-responsibility`;
+    return this.http.post<ModelResponsibility>(url, newModelResponsibility);
+  }
 }
