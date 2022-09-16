@@ -11,6 +11,7 @@ import { WorkspaceSingleComponent } from './components/views/workspace/workspace
 import { TeamViewComponent } from './components/views/workspace/team-view/team-view.component';
 import { ModelRoleReadComponent } from './components/views/model-role/model-role-read/model-role-read.component';
 import { FooterComponent } from './components/template/footer/footer.component';
+import { ModelResponsibilityComponent } from './components/views/model-responsibility/model-responsibility.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { FooterComponent } from './components/template/footer/footer.component';
     WorkspaceSingleComponent,
     TeamViewComponent,
     ModelRoleReadComponent,
-    FooterComponent
+    FooterComponent,
+    ModelResponsibilityComponent
   ],
   imports: [
     BrowserModule,
