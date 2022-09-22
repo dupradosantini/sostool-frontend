@@ -75,7 +75,11 @@
 </aside> -->
 
       <div class="container has-text-centered" *ngIf="this.teamsArray[this.selectedTeam].teamAssignedRoles.length > 0">
-        <app-team-view [teamAssignedRoles]="this.teamsArray[this.selectedTeam].teamAssignedRoles"></app-team-view>
+        <app-team-view
+        [teamAssignedRoles]="this.teamsArray[this.selectedTeam].teamAssignedRoles"
+        [workspaceResponsibilities]="this.workspaceResponsibilities"
+        [workspaceId]="this.workspaceId"
+        ></app-team-view>
       </div>
     </div>
     <div class="container has-text-centered" *ngIf="this.teamsArray.length<=0">

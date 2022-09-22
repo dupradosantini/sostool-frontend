@@ -53,6 +53,12 @@ export class WorkspaceSingleComponent implements OnInit {
     this.getModelRoles();
     this.getModelResponsibilities();
     this.getWorkspaceRoles();
+    this.service.findWorkspaceResponsibilities(this.workspaceId)
+    .subscribe({
+      next: (response) => {
+        this.workspaceResponsibilities = response;
+      }
+    })
   }
 
   getTeams(): void {
@@ -88,6 +94,7 @@ export class WorkspaceSingleComponent implements OnInit {
     .subscribe({
       next:(response) => {
         this.workspaceRoles = response;
+        console.log(this.workspaceRoles);
       }
     })
   }

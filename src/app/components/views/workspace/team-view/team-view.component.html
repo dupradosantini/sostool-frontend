@@ -1,8 +1,53 @@
 <div class="boxes is-multiline is-mobile">
-  <div class="box is-one-quarter" *ngFor="let role of teamAssignedRoles;">
+  <div class="box is-one-quarter"
+  *ngFor="let role of teamAssignedRoles;"
+  (click)="seeRole(seeRoleModal, role.id)">
     <p class="title">
       {{role.name}}
     </p>
     {{role.description}}
+  </div>
+</div>
+
+
+<!-- MODAL TO ADD SOME RESPONSIBILITY TO A ROLE!-->
+<div class="modal is-dark" #seeRoleModal>
+  <div class="modal-background is-dark"></div>
+  <div class="modal-card is-dark">
+    <header class="modal-card-head is-dark">
+      <p class="modal-card-title">See this role in details!</p>
+      <button class="delete" aria-label="close" (click)="toggleModal(seeRoleModal)"></button>
+    </header>
+    <section class="modal-card-body">
+      <!-- MODAL CONTENT -->
+      <h1> Name: </h1>
+      <li> {{selectedRole?.name}} </li>
+      <h1> Description: </h1>
+      <li> {{selectedRole?.description}}</li>
+      <label class="label">Responsibilities: </label>
+      <div *ngIf="selectedRole?.roleAssignedResponsibilities">
+        <li *ngFor="let responsibility of selectedRole?.roleAssignedResponsibilities">
+          {{responsibility.description}}
+        </li>
+      </div>
+      <div *ngIf="addResponsibilityFlag">
+
+        <label class="label">Choose which responsibility will be assigned </label>
+        <div class="select">
+          <select #ResponsibilitySelection>
+            <option *ngFor="let responsibility of workspaceResponsibilities;">
+              {{responsibility.description}}
+            </option>
+          </select>
+        </div>
+        <button class="button is-link"(click)="assignResponsibilityToRole(ResponsibilitySelection.value, seeRoleModal)">Assign Responsibility</button>
+      </div>
+
+       <!-- MODAL CONTENT -->
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-primary" (click)="addResponsibility()" >Add Responsibility</button>
+      <button class="button is-link is-light" (click)="toggleModal(seeRoleModal)" >Cancel</button>
+    </footer>
   </div>
 </div>
