@@ -7,6 +7,6 @@ export interface ModelResponsibility{
 
 export interface Responsibility{
   id: Number,
-  description: String,
+  description: string,
   parentResponsibility: ModelResponsibility;
 }

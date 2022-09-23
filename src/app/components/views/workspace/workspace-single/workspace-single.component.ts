@@ -172,30 +172,6 @@ export class WorkspaceSingleComponent implements OnInit {
     })
   }
 
-  createResponsibilityInWorkspace(responsibilityDescription: String, modal: HTMLElement): void{
-
-    const placeholderResponsibility : Responsibility = {
-      id: 0,
-      description: responsibilityDescription,
-      parentResponsibility: this.lastSelectedModelResponsibility
-    }
-
-    this.service.createResponsibilityInWorkspace(this.workspaceId, placeholderResponsibility)
-    .subscribe({
-      next: (response) => {
-        console.log("A resposta recebida (sucesso) foi:");
-        console.log(response);
-        this.toggleModal(modal);
-        alert("Responsibility Criada com Sucesso");
-        this.getWorkspaceRoles();
-      },
-      error: (response) => {
-        console.log(response);
-        this.toggleModal(modal);
-      }
-    })
-
-  }
 
 
   copyModelRole(selectedModel: string, roleNameField: HTMLInputElement, roleDescField: any){
@@ -212,16 +188,6 @@ export class WorkspaceSingleComponent implements OnInit {
     }
   }
 
-  copyModelResponsibility(selectedModel: string, responsibilityDescField: HTMLInputElement){
-
-    for(let r of this.modelResponsibilities){
-      if(r.description == selectedModel){
-        responsibilityDescField.value = r.description.toString();
-        this.lastSelectedModelResponsibility.id = r.id;
-        this.lastSelectedModelResponsibility.description = r.description;
-      }
-    }
-  }
 
   assignRoleToTeam(selectedRole: string, modal: Element, tabs: Element){
     //Gets the Id of the selected role

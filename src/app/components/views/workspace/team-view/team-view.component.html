@@ -24,14 +24,13 @@
       <li> {{selectedRole?.name}} </li>
       <h1> Description: </h1>
       <li> {{selectedRole?.description}}</li>
-      <label class="label">Responsibilities: </label>
+      <label class="label">Responsibilities</label>
       <div *ngIf="selectedRole?.roleAssignedResponsibilities">
         <li *ngFor="let responsibility of selectedRole?.roleAssignedResponsibilities">
           {{responsibility.description}}
         </li>
       </div>
-      <div *ngIf="addResponsibilityFlag">
-
+      <div class="responsibility-selection" #ResponsibilitySelectionMode>
         <label class="label">Choose which responsibility will be assigned </label>
         <div class="select">
           <select #ResponsibilitySelection>
@@ -40,14 +39,48 @@
             </option>
           </select>
         </div>
-        <button class="button is-link"(click)="assignResponsibilityToRole(ResponsibilitySelection.value, seeRoleModal)">Assign Responsibility</button>
+      </div>
+
+      <div class="responsibility-creation" #ResponsibilityCreationMode>
+        <div class="field">
+          <label class="label">Description</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="e.g. Description of a Responsibilty" #responsibilityDesc>
+          </div>
+        </div>
+
+        <label class="label">Choose a Model Responsibility</label>
+        <div class="select">
+          <select #modelResponsibilitySelection>
+            <option *ngFor="let modelResponsibility of modelResponsibilities;">
+              {{modelResponsibility.description}}
+            </option>
+          </select>
+        </div>
+
+        <button class="button is-link" (click)="copyModelResponsibility(modelResponsibilitySelection.value, responsibilityDesc)"> Confirm Selection </button>
+         <!-- MODAL CONTENT -->
       </div>
 
        <!-- MODAL CONTENT -->
     </section>
     <footer class="modal-card-foot">
-      <button class="button is-primary" (click)="addResponsibility()" >Add Responsibility</button>
-      <button class="button is-link is-light" (click)="toggleModal(seeRoleModal)" >Cancel</button>
+      <div>
+        <button class="button is-primary" (click)="finishEdit(ResponsibilitySelection.value, seeRoleModal, responsibilityDesc.value)" disabled #FinishButton>Finish Edit</button>
+        <br/>
+        <button class="button is-link is-light" (click)="cancelToggle(seeRoleModal,FinishButton,ResponsibilityCreationMode, ResponsibilitySelectionMode)" >Cancel</button>
+      </div>
+
+      <div class="resp-buttons">
+        <button class="button is-danger new-resp-button" (click)="responsibilityCreationTypeSelection(ResponsibilityCreationMode, ResponsibilitySelectionMode, true, FinishButton)">
+          + New Responsibility
+        </button>
+        <br/>
+        <button class="button is-danger is-light existing-resp-button" (click)="responsibilityCreationTypeSelection(ResponsibilitySelectionMode, ResponsibilityCreationMode , false, FinishButton)">
+          + Existing Responsibility
+        </button>
+      </div>
+
     </footer>
   </div>
 </div>

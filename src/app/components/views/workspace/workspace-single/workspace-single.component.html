@@ -5,7 +5,6 @@
       {{this.workspaceName}}
     </p>
     <div class="buttons">
-      <button class="button is-primary" (click)="toggleModal(addResponsibilityModal)">+ Create Responsibility</button>
       <button class="button is-primary" (click)="getRolesInMoreThanOneTeam(viewRolesModal)">View Roles</button>
       <button class="button is-primary" (click)="getWorkspaceResponsibilities(viewResponsibilitiesModal)">View Responsibilities</button>
     </div>
@@ -78,6 +77,7 @@
         [teamAssignedRoles]="this.teamsArray[this.selectedTeam].teamAssignedRoles"
         [workspaceResponsibilities]="this.workspaceResponsibilities"
         [workspaceId]="this.workspaceId"
+        [modelResponsibilities]="this.modelResponsibilities"
         ></app-team-view>
       </div>
     </div>
@@ -236,43 +236,6 @@
     </section>
     <footer class="modal-card-foot">
       <button class="button is-link is-light" (click)="toggleModal(viewRolesModal)">Close</button>
-    </footer>
-  </div>
-</div>
-
-<!-- MODAL TO CREATE A NEW RESPONSIBILITY IN THIS WORKSPACE -->
-<div class="modal is-dark" #addResponsibilityModal>
-  <div class="modal-background is-dark"></div>
-  <div class="modal-card is-dark">
-    <header class="modal-card-head is-dark">
-      <p class="modal-card-title">Add New Responsibility</p>
-      <button class="delete" aria-label="close" (click)="toggleModal(addResponsibilityModal)"></button>
-    </header>
-    <section class="modal-card-body">
-      <!-- MODAL CONTENT -->
-
-      <div class="field">
-        <label class="label">Description</label>
-        <div class="control">
-          <input class="input" type="text" placeholder="e.g. Description of a Responsibilty" #responsibilityDesc>
-        </div>
-      </div>
-
-      <label class="label">Choose a Model Responsibility</label>
-      <div class="select">
-        <select #modelResponsibilitySelection>
-          <option *ngFor="let modelResponsibility of modelResponsibilities;">
-            {{modelResponsibility.description}}
-          </option>
-        </select>
-      </div>
-
-      <button class="button is-link" (click)="copyModelResponsibility(modelResponsibilitySelection.value, responsibilityDesc)"> Confirm Selection </button>
-       <!-- MODAL CONTENT -->
-    </section>
-    <footer class="modal-card-foot">
-      <button class="button is-link" (click)="createResponsibilityInWorkspace(responsibilityDesc.value, addResponsibilityModal);" >Create Responsibility</button>
-      <button class="button is-link is-light" (click)="toggleModal(addResponsibilityModal)">Cancel</button>
     </footer>
   </div>
 </div>
