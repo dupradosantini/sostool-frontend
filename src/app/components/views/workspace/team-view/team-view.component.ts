@@ -57,6 +57,13 @@ export class TeamViewComponent implements OnInit {
   toggleModal(modal: Element) {
     modal.classList.toggle('is-active');
     this.addResponsibilityFlag=false;
+
+    this.respService.findWorkspaceResponsibilities(this.workspaceId)
+        .subscribe({
+          next: (response) => {
+            this.workspaceResponsibilities = response
+          }
+    })
   }
 
   addResponsibility(){

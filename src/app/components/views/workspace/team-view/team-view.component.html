@@ -19,50 +19,50 @@
       <button class="delete" aria-label="close" (click)="toggleModal(seeRoleModal)"></button>
     </header>
     <section class="modal-card-body">
-      <!-- MODAL CONTENT -->
-      <h1> Name: </h1>
-      <li> {{selectedRole?.name}} </li>
-      <h1> Description: </h1>
-      <li> {{selectedRole?.description}}</li>
-      <label class="label">Responsibilities</label>
-      <div *ngIf="selectedRole?.roleAssignedResponsibilities">
-        <li *ngFor="let responsibility of selectedRole?.roleAssignedResponsibilities">
-          {{responsibility.description}}
-        </li>
-      </div>
-      <div class="responsibility-selection" #ResponsibilitySelectionMode>
-        <label class="label">Choose which responsibility will be assigned </label>
-        <div class="select">
-          <select #ResponsibilitySelection>
-            <option *ngFor="let responsibility of workspaceResponsibilities;">
-              {{responsibility.description}}
-            </option>
-          </select>
+      <div class="content">
+        <!-- MODAL CONTENT -->
+        <h1> Name: </h1>
+        <p class="role-name"> {{selectedRole?.name}} </p>
+        <h1> Description: </h1>
+        <p class="role-description"> {{selectedRole?.description}}</p>
+        <label class="label">Responsibilities</label>
+        <div *ngIf="selectedRole?.roleAssignedResponsibilities">
+          <p class="role-resp-desc" *ngFor="let responsibility of selectedRole?.roleAssignedResponsibilities">
+            {{responsibility.description}}
+          </p>
         </div>
-      </div>
-
-      <div class="responsibility-creation" #ResponsibilityCreationMode>
-        <div class="field">
-          <label class="label">Description</label>
-          <div class="control">
-            <input class="input" type="text" placeholder="e.g. Description of a Responsibilty" #responsibilityDesc>
+        <div class="responsibility-selection" #ResponsibilitySelectionMode>
+          <label class="label">Choose which responsibility will be assigned </label>
+          <div class="select">
+            <select #ResponsibilitySelection>
+              <option *ngFor="let responsibility of workspaceResponsibilities;">
+                {{responsibility.description}}
+              </option>
+            </select>
           </div>
         </div>
 
-        <label class="label">Choose a Model Responsibility</label>
-        <div class="select">
-          <select #modelResponsibilitySelection>
-            <option *ngFor="let modelResponsibility of modelResponsibilities;">
-              {{modelResponsibility.description}}
-            </option>
-          </select>
+        <div class="responsibility-creation" #ResponsibilityCreationMode>
+          <div class="field">
+            <label class="label">Description</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="e.g. Description of a Responsibilty" #responsibilityDesc>
+            </div>
+          </div>
+
+          <label class="label">Choose a Model Responsibility</label>
+          <div class="select">
+            <select #modelResponsibilitySelection>
+              <option *ngFor="let modelResponsibility of modelResponsibilities;">
+                {{modelResponsibility.description}}
+              </option>
+            </select>
+          </div>
+
+          <button class="button is-link" (click)="copyModelResponsibility(modelResponsibilitySelection.value, responsibilityDesc)"> Confirm Selection </button>
         </div>
-
-        <button class="button is-link" (click)="copyModelResponsibility(modelResponsibilitySelection.value, responsibilityDesc)"> Confirm Selection </button>
-         <!-- MODAL CONTENT -->
+        <!-- MODAL CONTENT -->
       </div>
-
-       <!-- MODAL CONTENT -->
     </section>
     <footer class="modal-card-foot">
       <div>
