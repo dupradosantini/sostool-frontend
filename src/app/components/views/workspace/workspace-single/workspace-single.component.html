@@ -5,10 +5,9 @@
       {{this.workspaceName}}
     </p>
     <div class="buttons">
-      <button class="button is-primary" (click)="toggleModal(addRoleModal)">+ Create Role</button>
       <button class="button is-primary" (click)="toggleModal(addResponsibilityModal)">+ Create Responsibility</button>
       <button class="button is-primary" (click)="getRolesInMoreThanOneTeam(viewRolesModal)">View Roles</button>
-      <button class="button is-primary" (click)="getWorkspaceResponsibilities(viewResponsibilitiesModal)">View Roles</button>
+      <button class="button is-primary" (click)="getWorkspaceResponsibilities(viewResponsibilitiesModal)">View Responsibilities</button>
     </div>
   </div>
 </section>
@@ -122,50 +121,7 @@
   </div>
 </section>
 
-<!-- MODAL TO CREATE A NEW ROLE IN THIS WORKSPACE -->
-<div class="modal is-dark" #addRoleModal>
-  <div class="modal-background is-dark"></div>
-  <div class="modal-card is-dark">
-    <header class="modal-card-head is-dark">
-      <p class="modal-card-title">Add New Role</p>
-      <button class="delete" aria-label="close" (click)="toggleModal(addRoleModal)"></button>
-    </header>
-    <section class="modal-card-body">
-      <!-- MODAL CONTENT -->
-      <div class="field">
-        <label class="label">Name</label>
-        <div class="control">
-          <input class="input" type="text" placeholder="e.g Software Engineer" #roleName>
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Description</label>
-        <div class="control">
-          <input class="input" type="text" placeholder="e.g. Description of a Software Engineer" #roleDesc>
-        </div>
-      </div>
-
-      <label class="label">Choose a Model Role</label>
-      <div class="select">
-        <select #modelRoleSelection>
-          <option *ngFor="let modelRole of modelRoles;">
-            {{modelRole.name}}
-          </option>
-        </select>
-      </div>
-
-      <button class="button is-link" (click)="copyModelRole(modelRoleSelection.value, roleName, roleDesc)"> Confirm Selection </button>
-       <!-- MODAL CONTENT -->
-    </section>
-    <footer class="modal-card-foot">
-      <button class="button is-link" (click)="createRoleInWorkspace(roleName.value, roleDesc.value, addRoleModal)" >Create Role</button>
-      <button class="button is-link is-light" (click)="toggleModal(addRoleModal)" >Cancel</button>
-    </footer>
-  </div>
-</div>
-
-<!-- MODAL TO ADD SOME ROLE TO A TEAM!-->
+<!-- MODAL TO CREATE A ROLE AND/OR ADD ROLE TO A TEAM !-->
 <div class="modal is-dark" #assignRoleToTeamModal>
   <div class="modal-background is-dark"></div>
   <div class="modal-card is-dark">
@@ -176,17 +132,56 @@
     <section class="modal-card-body">
       <!-- MODAL CONTENT -->
       <label class="label">Choose which role will be assigned </label>
-      <div class="select">
-        <select #RoleSelection>
-          <option *ngFor="let role of workspaceRoles;">
-            {{role.name}}
-          </option>
-        </select>
+      <button class="button is-link new-role-button"(click)="roleCreationTypeSelection(RoleCreation, RoleSelection, true)">New Role</button>
+      <button class="button is-link is-light existing-role-button" (click)="roleCreationTypeSelection(RoleSelection, RoleCreation, false)" >Existing Role</button>
+      <br/>
+      <div  class="role-creation is-active" #RoleCreation>
+        <!-- ROLE CREATION CONTENT-->
+        <div class="field">
+          <label class="label">Name</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="e.g Software Engineer" #roleName>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Description</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="e.g. Description of a Software Engineer" #roleDesc>
+          </div>
+        </div>
+
+        <label class="label">Choose a Model Role</label>
+        <div class="select">
+          <select #modelRoleSelection>
+            <option *ngFor="let modelRole of modelRoles;">
+              {{modelRole.name}}
+            </option>
+          </select>
+        </div>
+        <button class="button is-link" (click)="copyModelRole(modelRoleSelection.value, roleName, roleDesc)"> Confirm Selection </button>
+      </div>
+      <!--END OF ROLE CREATION CONTENT-->
+      <div class="role-selection" #RoleSelection>
+        <div class="select">
+          <select #RoleSelectionResult>
+            <option *ngFor="let role of workspaceRoles;">
+              {{role.name}}
+            </option>
+          </select>
+        </div>
       </div>
        <!-- MODAL CONTENT -->
     </section>
     <footer class="modal-card-foot">
-      <button class="button is-link"(click)="assignRoleToTeam(RoleSelection.value, assignRoleToTeamModal, tabs)">Assign Role</button>
+      <button class="button is-link"
+      (click)="assignRoleToTeam(RoleSelectionResult.value, assignRoleToTeamModal, tabs)"
+      *ngIf="!isNewRoleCreation">Assign Role</button>
+
+      <button class="button is-link"
+      (click)="createRoleInWorkspace(roleName.value, roleDesc.value, assignRoleToTeamModal)"
+      *ngIf="isNewRoleCreation">Finish Creation</button>
+
       <button class="button is-link is-light" (click)="toggleModal(assignRoleToTeamModal)" >Cancel</button>
     </footer>
   </div>

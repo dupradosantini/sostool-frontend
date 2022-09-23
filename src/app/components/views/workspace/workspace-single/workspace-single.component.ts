@@ -13,6 +13,7 @@ import { WorkspaceService } from '../workspace.service';
 })
 export class WorkspaceSingleComponent implements OnInit {
 
+  isNewRoleCreation: boolean = true;
   firstLoad: boolean = true;
   workspaceId: Number;
   teamsArray: Teams[];
@@ -159,9 +160,10 @@ export class WorkspaceSingleComponent implements OnInit {
     .subscribe({
       next: (response) => {
         console.log("A resposta recebida (sucesso) foi:" + response);
-        this.toggleModal(modal);
         alert("Role Criada com Sucesso");
-        this.getWorkspaceRoles();
+        //this.getWorkspaceRoles();
+        this.workspaceRoles.push(response)
+        this.assignRoleToTeam(roleName, modal, modal);
       },
       error: (response) => {
         console.log(response);
@@ -278,6 +280,14 @@ export class WorkspaceSingleComponent implements OnInit {
         alert("Team Deletion Failed!");
       }
     })
+  }
+
+  roleCreationTypeSelection(elementOn: HTMLElement, elementOff: HTMLElement, newRole: boolean){
+    this.isNewRoleCreation = newRole;
+    if(!elementOn.classList.contains('is-active')){
+      elementOn.classList.toggle('is-active');
+      elementOff.classList.toggle('is-active');
+    }
   }
 
 }
