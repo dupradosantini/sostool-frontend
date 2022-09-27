@@ -1,13 +1,25 @@
 
-$navbar-background-color: #1e1e3a
+
+$navbar-background-color: #0AA1DD
 $navbar-height: 5rem
 
-$navbar-item-color: #47d7ac
-$navbar-item-hover-color:#EFF0EB
-$navbar-item-hover-background-color: #11111F
+$navbar-item-color: #E8F9FD
+$navbar-item-hover-color:#2155CD
+$navbar-item-hover-background-color: #79DAE8
 
-$navbar-dropdown-background-color: #1e1e3a
-$navbar-dropdown-item-hover-color: #EFF0EB
-$navbar-dropdown-item-hover-background-color: #11111F
+$navbar-dropdown-background-color: #79DAE8
+$navbar-dropdown-item-color: #2155CD
+$navbar-dropdown-item-hover-color: #E8F9FD
+$navbar-dropdown-item-hover-background-color: #0AA1DD
 
-@import "../../../../../src/styles"
+.navbar-item
+  &.has-dropdown
+    color: #2155CD
+
+.navbar-dropdown
+  .navbar-item
+    color: #2155CD
+
+@import "../../../../../src/styles.sass"
+
+
