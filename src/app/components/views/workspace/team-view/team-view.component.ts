@@ -64,6 +64,12 @@ export class TeamViewComponent implements OnInit {
             this.workspaceResponsibilities = response
           }
     })
+    this.respService.findWorkspaceRoles(this.workspaceId)
+    .subscribe({
+      next: (response) => {
+        this.teamAssignedRoles = response;
+      }
+    })
   }
 
   addResponsibility(){
