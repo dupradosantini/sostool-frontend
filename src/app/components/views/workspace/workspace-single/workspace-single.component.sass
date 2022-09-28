@@ -1,13 +1,19 @@
-
-$tabs-link-color: #FA7C91
+$tabs-link-color: #2155CD
 $tabs-link-hover-color: white
-$tabs-boxed-link-hover-background-color: #8A4D76
-$tabs-boxed-link-active-background-color: #1e1e3a
-$tabs-boxed-link-active-border-color: #1e1e3a
+$tabs-toggle-link-active-color: white
+
+$tabs-toggle-link-radius: 6px 6px 0px 0px
+$tabs-toggle-link-border-width: 2px 2px 0px 2px
+$tabs-toggle-link-hover-background-color: #6fc2e3
+$tabs-toggle-link-hover-border-color:#6fc2e3
+$tabs-toggle-link-border-color: #0AA1DD
+$tabs-toggle-link-active-background-color:#0AA1DD
+$tabs-toggle-link-active-border-color: #0AA1DD
+
 
 
 .rounded
-  border-top: 8px solid #47d7ac
+  border-top: 8px solid #2155CD
   border-radius: 3px
 .hero-workspace
   .hero-body
@@ -16,7 +22,7 @@ $tabs-boxed-link-active-border-color: #1e1e3a
     max-height: 95px
     .title
       grid-area: logo
-      color: #47d7ac
+      color: #2155CD
       max-width: 40%
       padding-right: 5%
     .buttons
@@ -28,21 +34,31 @@ $tabs-boxed-link-active-border-color: #1e1e3a
     flex-wrap: wrap
     .title
       grid-area: logo
-      color: #47d7ac
+      color: #2155CD
       max-width: 40%
       padding-right: 5%
     .buttons
       padding-bottom: 3%
+    .hero-foot
+      .tabs
+        .container
+          .tab
+            margin: 20px
 
 .hero
   .hero-body
     .title
-      color: #47d7ac
+      color: #2155CD
     .container
       .title
-        color: #47d7ac
+        color: #2155CD
       .subtitle
-        color: #91E7CD
+        color: #0AA1DD
+
+.tabs
+  li
+    margin-left: 10px
+    margin-right: 10px
 
 aside
   width: 15%

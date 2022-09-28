@@ -16,7 +16,7 @@
   <div class="modal-card is-dark">
     <header class="modal-card-head is-dark">
       <p class="modal-card-title">See this role in details!</p>
-      <button class="delete" aria-label="close" (click)="toggleModal(seeRoleModal)"></button>
+      <button class="delete" aria-label="close" (click)="cancelToggle(seeRoleModal,FinishButton,ResponsibilityCreationMode, ResponsibilitySelectionMode)"></button>
     </header>
     <section class="modal-card-body">
       <div class="content">
@@ -65,20 +65,20 @@
       </div>
     </section>
     <footer class="modal-card-foot">
-      <div>
-        <button class="button is-primary" (click)="finishEdit(ResponsibilitySelection.value, seeRoleModal, responsibilityDesc.value)" disabled #FinishButton>Finish Edit</button>
-        <br/>
-        <button class="button is-link is-light" (click)="cancelToggle(seeRoleModal,FinishButton,ResponsibilityCreationMode, ResponsibilitySelectionMode)" >Cancel</button>
-      </div>
-
       <div class="resp-buttons">
-        <button class="button is-danger new-resp-button" (click)="responsibilityCreationTypeSelection(ResponsibilityCreationMode, ResponsibilitySelectionMode, true, FinishButton)">
+        <button class="button is-primary new-resp-button" (click)="responsibilityCreationTypeSelection(ResponsibilityCreationMode, ResponsibilitySelectionMode, true, FinishButton)">
           + New Responsibility
         </button>
         <br/>
-        <button class="button is-danger is-light existing-resp-button" (click)="responsibilityCreationTypeSelection(ResponsibilitySelectionMode, ResponsibilityCreationMode , false, FinishButton)">
+        <button class="button is-primary is-light existing-resp-button" (click)="responsibilityCreationTypeSelection(ResponsibilitySelectionMode, ResponsibilityCreationMode , false, FinishButton)">
           + Existing Responsibility
         </button>
+      </div>
+
+      <div>
+        <button class="button is-primary" (click)="finishEdit(ResponsibilitySelection.value, seeRoleModal, responsibilityDesc.value)" disabled #FinishButton>Save</button>
+        <br/>
+        <button class="button is-link is-light" (click)="cancelToggle(seeRoleModal,FinishButton,ResponsibilityCreationMode, ResponsibilitySelectionMode)" >Cancel</button>
       </div>
 
     </footer>

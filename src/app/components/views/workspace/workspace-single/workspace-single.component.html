@@ -104,7 +104,7 @@
 
   <!-- TABS -->
   <div class="hero-foot">
-    <nav class="tabs is-centered is-boxed is-medium">
+    <nav class="tabs is-centered is-boxed is-toggle is-medium">
       <div class="container">
         <ul #tabs>
           <li class="tab" *ngFor="let team of teamsArray; let i = index;" (click)="selectTeam(i,tabs)">
@@ -223,11 +223,12 @@
     <section class="modal-card-body">
       <!-- MODAL CONTENT -->
       <div class="viewRoles">
-        <h1> List of Roles: </h1>
+        <h1 *ngIf="workspaceRoles.length==0"> No role in this workspace yet </h1>
+        <h1 *ngIf="workspaceRoles.length>0"> List of Roles: </h1>
         <div class="listRoleElement" *ngFor="let role of workspaceRoles">
           <li> {{role.name}} </li>
         </div>
-        <h1> Roles in more than one team: </h1>
+        <h1 *ngIf="rolesInMany.length>0"> Roles in more than one team: </h1>
         <div class="listRoleInMany" *ngFor="let role of rolesInMany">
           <li> {{role.name}} </li>
         </div>
@@ -251,7 +252,8 @@
     <section class="modal-card-body">
       <!-- MODAL CONTENT -->
       <div class="viewRoles">
-        <h1> List of Responsibilities: </h1>
+        <h1 *ngIf="workspaceResponsibilities.length==0"> No responsibilities in this workspace yet </h1>
+        <h1 *ngIf="workspaceResponsibilities.length>0"> List of Responsibilities: </h1>
         <div class="listRoleElement" *ngFor="let responsibility of workspaceResponsibilities">
           <li> {{responsibility.description}} </li>
         </div>
