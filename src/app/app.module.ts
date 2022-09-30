@@ -13,6 +13,8 @@ import { TeamViewComponent } from './components/views/workspace/team-view/team-v
 import { ModelRoleReadComponent } from './components/views/model-role/model-role-read/model-role-read.component';
 import { FooterComponent } from './components/template/footer/footer.component';
 import { ModelResponsibilityComponent } from './components/views/model-responsibility/model-responsibility.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { ModelResponsibilityComponent } from './components/views/model-responsib
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

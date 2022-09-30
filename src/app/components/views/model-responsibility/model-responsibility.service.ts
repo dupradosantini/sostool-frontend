@@ -22,4 +22,9 @@ export class ModelResponsibilityService {
     const url = `${this.baseUrl}/model-responsibility`;
     return this.http.post<ModelResponsibility>(url, newModelResponsibility);
   }
+
+  updateModelResponsibility(modelRespObj: ModelResponsibility): Observable<ModelResponsibility> {
+    const url = `${this.baseUrl}/model-responsibility/edit`
+    return this.http.post<ModelResponsibility>(url,modelRespObj);
+  }
 }

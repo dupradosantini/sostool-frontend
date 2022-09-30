@@ -1,12 +1,12 @@
 export interface ModelResponsibility{
-  id: Number,
-  description: String,
+  id: number,
+  description: string,
   sonResponsibilities?: Responsibility[]
 }
 
 
 export interface Responsibility{
-  id: Number,
+  id: number,
   description: string,
   parentResponsibility: ModelResponsibility;
 }

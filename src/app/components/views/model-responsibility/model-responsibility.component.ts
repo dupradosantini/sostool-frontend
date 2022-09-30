@@ -11,6 +11,8 @@ export class ModelResponsibilityComponent implements OnInit {
 
   modelResponsibilityArray: ModelResponsibility[] =[];
 
+  selectedModelResponsibility = {} as ModelResponsibility;
+
   constructor(private service: ModelResponsibilityService) { }
 
   ngOnInit(): void {
@@ -31,7 +33,7 @@ export class ModelResponsibilityComponent implements OnInit {
     })
   }
 
-  createNewModelResponsibility( responsibilityDesc: String, modal: HTMLElement): void {
+  createNewModelResponsibility( responsibilityDesc: string, modal: HTMLElement): void {
 
     const newObj: ModelResponsibility = {
       id: 0,
@@ -45,7 +47,7 @@ export class ModelResponsibilityComponent implements OnInit {
         console.log(response);
         this.toggleModal(modal);
         alert("ModelResponsibility created succesfully!");
-        this.modelResponsibilityArray.push(newObj);
+        this.modelResponsibilityArray.push(response);
       },
       error: (errorResp) => {
         console.log(errorResp);
@@ -58,6 +60,32 @@ export class ModelResponsibilityComponent implements OnInit {
 
   toggleModal(modal: any) {
     modal.classList.toggle('is-active');
+  }
+
+  editSelection(modelResponsibility: ModelResponsibility, modal:HTMLElement, descInput:HTMLInputElement){
+    this.selectedModelResponsibility = modelResponsibility;
+    descInput.value = this.selectedModelResponsibility.description;
+    this.toggleModal(modal)
+  }
+
+  saveEdit(descInput:HTMLInputElement, modal:HTMLElement){
+    let toBeSentModelResp = this.selectedModelResponsibility;
+    toBeSentModelResp.description = descInput.value;
+    this.service.updateModelResponsibility(toBeSentModelResp)
+    .subscribe({
+      next: (response) => {
+        for(let resp of this.modelResponsibilityArray){
+          if(resp.id === response.id){
+            resp = response;
+          }
+        }
+        alert("Update Succesfull");
+        this.toggleModal(modal);
+      },
+      error: (errorResp) => {
+        alert("Update Failed");
+      }
+    })
   }
 
 
