@@ -15,6 +15,7 @@ import { FooterComponent } from './components/template/footer/footer.component';
 import { ModelResponsibilityComponent } from './components/views/model-responsibility/model-responsibility.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
+import { UsersReadComponent } from './components/views/users-read/users-read.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { MatIconModule } from '@angular/material/icon';
     TeamViewComponent,
     ModelRoleReadComponent,
     FooterComponent,
-    ModelResponsibilityComponent
+    ModelResponsibilityComponent,
+    UsersReadComponent
   ],
   imports: [
     BrowserModule,
