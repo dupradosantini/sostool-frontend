@@ -1,1 +1,16 @@
-<p>users-read works!</p>
+<div class="hero">
+  <div class="hero-body">
+     <h1 class="title"> List of all registered users: </h1>
+     <div class="content">
+      <div class="modelResponsibilityElement" *ngFor="let user of userArray">
+        <div class="bullet-point">
+          <li> {{user.name}} </li>
+          <button class="button is-link is-small">
+            <mat-icon>remove_red_eye</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <button class="button is-primary" >+ New User</button>
+  </div>
+</div>
