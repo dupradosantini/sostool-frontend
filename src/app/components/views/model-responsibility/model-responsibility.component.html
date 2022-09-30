@@ -3,7 +3,10 @@
      <h1 class="title"> List of all Model Responsibilities that are available: </h1>
      <div class="content">
       <div class="modelResponsibilityElement" *ngFor="let responsibility of modelResponsibilityArray">
-        <li> {{responsibility.description}} </li>
+        <div class="bullet-point">
+          <li> {{responsibility.description}} </li>
+          <button class="button is-link">Edit</button>
+        </div>
         <p class="howManyText">
           used in: <span class="howManyNumber"> {{responsibility.sonResponsibilities?.length}} </span> project responsibilities
         </p>
