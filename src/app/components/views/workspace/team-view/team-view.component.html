@@ -22,18 +22,19 @@
       <div class="content">
         <!-- MODAL CONTENT -->
         <h1> Role Name: </h1>
-        <p class="role-name"> {{selectedRole?.name}} </p>
+        <p class="role-name"> {{selectedRole.name}} </p>
         <h1> Description: </h1>
-        <p class="role-description"> {{selectedRole?.description}}</p>
+        <p class="role-description"> {{selectedRole.description}}</p>
+        <label class="label">Members</label>
+
+
         <label class="label">Responsibilities</label>
         <div *ngIf="selectedRole?.roleAssignedResponsibilities">
           <div class="resp-desc-div" *ngFor="let responsibility of selectedRole?.roleAssignedResponsibilities">
             <div class="role-resp-desc">
               <p> {{responsibility.description}} </p>
             </div>
-            <button class="delete">
-
-            </button>
+            <button class="delete" (click)="removeRespFromRole(responsibility)"></button>
           </div>
         </div>
         <div class="responsibility-selection" #ResponsibilitySelectionMode>

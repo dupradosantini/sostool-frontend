@@ -12,7 +12,7 @@ import { WorkspaceSingleComponent } from '../workspace-single/workspace-single.c
 })
 export class TeamViewComponent implements OnInit {
 
-  selectedRole?: Roles;
+  selectedRole = {} as Roles;
   addResponsibilityFlag: Boolean = false;
   isNewResponsibilityCreation: boolean = true;
 
@@ -176,6 +176,22 @@ export class TeamViewComponent implements OnInit {
         this.lastSelectedModelResponsibility.id = r.id;
         this.lastSelectedModelResponsibility.description = r.description;
       }
+    }
+  }
+
+  removeRespFromRole(responsibility: Responsibility){
+    const roleId = this.selectedRole?.id;
+    if(roleId !== undefined){
+      this.service.removeResponsibilityFromRole(this.workspaceId,roleId,responsibility.id)
+    .subscribe({
+      next: (response) => {
+        if(this.selectedRole != undefined){
+          this.selectedRole.roleAssignedResponsibilities = response;
+        }
+        console.log(response);
+        alert("responsibility removed");
+      }
+    })
     }
   }
 

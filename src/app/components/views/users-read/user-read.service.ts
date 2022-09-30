@@ -17,4 +17,9 @@ export class UserReadService {
     const url = `${this.baseUrl}/users`;
     return this.http.get<User[]>(url);
   }
+
+  createUser(userObj: User):Observable<User>{
+    const url = `${this.baseUrl}/users`;
+    return this.http.post<User>(url,userObj);
+  }
 }

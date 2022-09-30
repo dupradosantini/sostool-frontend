@@ -11,6 +11,37 @@
         </div>
       </div>
     </div>
-    <button class="button is-primary" >+ New User</button>
+    <button class="button is-primary" (click)="toggleModal(createUserModal)">+ New User</button>
+  </div>
+</div>
+
+<!-- MODAL TO CREATE A NEW USER !-->
+<div class="modal" #createUserModal>
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Create new Model Responsibility</p>
+      <button class="delete" aria-label="close" (click)="toggleModal(createUserModal)"></button>
+    </header>
+    <section class="modal-card-body">
+      <!-- MODAL CONTENT -->
+      <div class="field">
+        <label class="label">Name</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="e.g. Bob" #userName>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Email</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="e.g. bob@mail.com" #userMail>
+        </div>
+      </div>
+      <!-- MODAL CONTENT -->
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-link" (click)="createNewUser(userName.value, userMail.value, createUserModal)"> Create </button>
+      <button class="button is-link is-light" (click)="toggleModal(createUserModal)"> Cancel </button>
+    </footer>
   </div>
 </div>
