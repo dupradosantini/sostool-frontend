@@ -35,49 +35,13 @@
         It has no roles yet.
       </p>
 
-<!-- ASIDE MENU -->
-<!-- <aside class="menu">
-  <p class="menu-label">
-    Project Management
-  </p>
-  <ul class="menu-list">
-    <li><a>Create Role</a></li>
-    <li><a>Create Responsability</a></li>
-    <li><a>View created Roles</a></li>
-  </ul>
-  <p class="menu-label">
-    Team Management
-  </p>
-  <ul class="menu-list">
-    <li><a>Team Settings</a></li>
-    <li>
-      <a class="is-active">Manage Your Team</a>
-      <ul>
-        <li><a>Members</a></li>
-        <li><a>Plugins</a></li>
-        <li><a>Add a member</a></li>
-      </ul>
-    </li>
-    <li><a>Invitations</a></li>
-    <li><a>Cloud Storage Environment Settings</a></li>
-    <li><a>Authentication</a></li>
-  </ul>
-  <p class="menu-label">
-    Transactions
-  </p>
-  <ul class="menu-list">
-    <li><a>Payments</a></li>
-    <li><a>Transfers</a></li>
-    <li><a>Balance</a></li>
-  </ul>
-</aside> -->
-
       <div class="container has-text-centered" *ngIf="this.teamsArray[this.selectedTeam].teamAssignedRoles.length > 0">
         <app-team-view
         [teamAssignedRoles]="this.teamsArray[this.selectedTeam].teamAssignedRoles"
         [workspaceResponsibilities]="this.workspaceResponsibilities"
         [workspaceId]="this.workspaceId"
         [modelResponsibilities]="this.modelResponsibilities"
+        [teamId]="this.selectedTeamId"
         ></app-team-view>
       </div>
     </div>
@@ -107,7 +71,7 @@
     <nav class="tabs is-centered is-boxed is-toggle is-medium">
       <div class="container">
         <ul #tabs>
-          <li class="tab" *ngFor="let team of teamsArray; let i = index;" (click)="selectTeam(i,tabs)">
+          <li class="tab" *ngFor="let team of teamsArray; let i = index;" (click)="selectTeam(i,tabs,team.id)">
             <a class="names">{{team.name}}</a>
           </li>
           <li class="add-team-tab" (click)="toggleModal(addTeamModal)">

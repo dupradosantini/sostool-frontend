@@ -36,4 +36,9 @@ export class TeamViewService {
     return this.http.get<User[]>(url);
   }
 
+  findWorkspaceRolesInTeam(workspaceId: Number, teamId: Number): Observable<Roles[]>{
+    const url = `${this.baseUrl}/workspace/${workspaceId}/teams/${teamId}/roles`
+    return this.http.get<Roles[]>(url);
+  }
+
 }

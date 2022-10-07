@@ -28,6 +28,7 @@ export class TeamViewComponent implements OnInit {
   @Input() workspaceResponsibilities: Responsibility[] = [];
   @Input() workspaceId: Number = 0;
   @Input() modelResponsibilities: ModelResponsibility[] = [];
+  @Input() teamId: Number = -1;
 
   lastSelectedModelResponsibility: ModelResponsibility = {
     id:1,
@@ -57,6 +58,7 @@ export class TeamViewComponent implements OnInit {
   }
 
   seeRole(modal: Element, roleId: Number) {
+    this.getRoles();
     this.toggleModal(modal);
     for(let role of this.teamAssignedRoles){
       if(roleId === role.id){
@@ -76,12 +78,7 @@ export class TeamViewComponent implements OnInit {
             this.workspaceResponsibilities = response
           }
     })
-    this.respService.findWorkspaceRoles(this.workspaceId)
-    .subscribe({
-      next: (response) => {
-        this.teamAssignedRoles = response;
-      }
-    })
+    this.getRoles();
   }
 
   addResponsibility(){
@@ -275,7 +272,7 @@ export class TeamViewComponent implements OnInit {
           console.log(this.roleAssignedMembers)
         },
         error: (errorResp) => {
-          console.log(errorResp);
+          alert(errorResp.error.message);
         }
       })
     }
@@ -291,6 +288,14 @@ export class TeamViewComponent implements OnInit {
           console.log(errorResp);
         }
       })
+    }
+
+    getRoles(){
+      this.service.findWorkspaceRolesInTeam(this.workspaceId,this.teamId).subscribe({
+        next: (response) => {
+          this.teamAssignedRoles = response;
+        }
+      });
     }
 
 }

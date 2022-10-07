@@ -18,6 +18,7 @@ export class WorkspaceSingleComponent implements OnInit {
   workspaceId: Number;
   teamsArray: Teams[];
   selectedTeam: number;
+  selectedTeamId: Number;
   workspaceName: String;
   modelRoles: Roles[] = [];
   modelResponsibilities: ModelResponsibility[] = [];
@@ -45,6 +46,7 @@ export class WorkspaceSingleComponent implements OnInit {
       this.teamsArray = [];
       this.selectedTeam = 0;
       this.workspaceName = "";
+      this.selectedTeamId = -1;
      }
 
   ngOnInit(): void {
@@ -126,9 +128,10 @@ export class WorkspaceSingleComponent implements OnInit {
     })
   }
 
-  selectTeam(index: number, tabs: Element): void {
+  selectTeam(index: number, tabs: Element,teamId: Number): void {
     this.firstLoad = false;
     this.selectedTeam = index;
+    this.selectedTeamId = teamId;
     const children = tabs.children;
     this.getWorkspaceRoles();
     for (let i = 0; i < children.length; i++) {
@@ -162,7 +165,7 @@ export class WorkspaceSingleComponent implements OnInit {
       next: (response) => {
         console.log("A resposta recebida (sucesso) foi:" + response);
         alert("Role Criada com Sucesso");
-        //this.getWorkspaceRoles();
+        this.getWorkspaceRoles();
         this.workspaceRoles.push(response)
         this.assignRoleToTeam(roleName, modal, modal);
       },
@@ -200,6 +203,7 @@ export class WorkspaceSingleComponent implements OnInit {
         .subscribe({
           next: (response) => {
             console.log(response);
+            this.getWorkspaceRoles();
             this.teamsArray[this.selectedTeam].teamAssignedRoles.push(role);
             this.toggleModal(modal);
           },
