@@ -40,7 +40,7 @@ export class UsersReadComponent implements OnInit {
       next: (response) => {
         this.userArray.push(response);
         this.toggleModal(modal);
-        alert("User crated!");
+        alert("User created!");
       },
       error: (erroResp) =>{
         alert("User creation failed");

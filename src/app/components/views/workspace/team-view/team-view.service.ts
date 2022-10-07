@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { Roles } from '../workspace.model';
 import { Responsibility } from '../../model-responsibility/model-responsibility.model';
+import { User } from '../../users-read/userModel';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,16 @@ export class TeamViewService {
   removeResponsibilityFromRole(workspaceId: Number, roleId: Number, respId: Number): Observable<Responsibility[]>{
     const url = `${this.baseUrl}/workspace/${workspaceId}/businessroles/${roleId}/responsibilities/${respId}/remove`
     return this.http.put<Responsibility[]>(url,null);
+  }
+
+  assignUserToRole(workspaceId: Number, roleId: Number, userId: number):Observable<User[]>{
+    const url = `${this.baseUrl}/workspace/${workspaceId}/businessroles/${roleId}/member/${userId}`
+    return this.http.put<User[]>(url,null);
+  }
+
+  getRoleAssignedUsers(workspaceId: Number, roleId: Number):Observable<User[]>{
+    const url = `${this.baseUrl}/workspace/${workspaceId}/businessroles/${roleId}/members`
+    return this.http.get<User[]>(url);
   }
 
 }

@@ -1,5 +1,6 @@
 import { Responsibility } from "../model-responsibility/model-responsibility.model";
 import { ModelRole } from "../model-role/model-role.model";
+import { User } from "../users-read/userModel";
 
 export interface Workspace{
   id: Number;
@@ -20,4 +21,5 @@ export interface Roles{
   description: String;
   parentRole: ModelRole;
   roleAssignedResponsibilities?: Responsibility[];
+  assignedMembers: User[];
 }

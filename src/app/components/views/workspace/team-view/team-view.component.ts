@@ -4,6 +4,8 @@ import { Roles } from '../workspace.model';
 import { WorkspaceService } from '../workspace.service';
 import { TeamViewService } from './team-view.service';
 import { WorkspaceSingleComponent } from '../workspace-single/workspace-single.component';
+import { User } from '../../users-read/userModel';
+import { UserReadService } from '../../users-read/user-read.service';
 
 @Component({
   selector: 'app-team-view',
@@ -15,6 +17,12 @@ export class TeamViewComponent implements OnInit {
   selectedRole = {} as Roles;
   addResponsibilityFlag: Boolean = false;
   isNewResponsibilityCreation: boolean = true;
+  isAddUser: boolean = false;
+  userArray: User[]=[];
+  lastSelectedUser = {} as User;
+  roleAssignedMembers: User[] = [];
+  hasUserSelected: boolean = false;
+  hasRespSelected: boolean = false;
 
   @Input() teamAssignedRoles: Roles[] = [];
   @Input() workspaceResponsibilities: Responsibility[] = [];
@@ -26,11 +34,15 @@ export class TeamViewComponent implements OnInit {
     description:""
   }
 
-  constructor(private service: TeamViewService, private respService: WorkspaceService, private workspaceComponenet: WorkspaceSingleComponent) { }
+  constructor(private service: TeamViewService,
+    private respService: WorkspaceService,
+    private workspaceComponenet: WorkspaceSingleComponent,
+    private userService: UserReadService) { }
 
   ngOnInit(): void {
     this.teamAssignedRoles.sort(this.compare);
     console.log(this.workspaceResponsibilities);
+    this.getUsers();
   }
 
 
@@ -51,7 +63,7 @@ export class TeamViewComponent implements OnInit {
         this.selectedRole = role;
       }
     }
-
+    this.findRoleMembers();
   }
 
   toggleModal(modal: Element) {
@@ -104,6 +116,7 @@ export class TeamViewComponent implements OnInit {
 
   responsibilityCreationTypeSelection(elementOn: HTMLElement, elementOff: HTMLElement, newResponsibility: boolean, finishButton: HTMLButtonElement){
 
+    this.hasRespSelected = true;
     finishButton.disabled = false;
 
     if(!elementOn.classList.contains('is-active') && !elementOff.classList.contains('is-active')){
@@ -118,24 +131,30 @@ export class TeamViewComponent implements OnInit {
   }
 
   cancelToggle(modal: Element, finishButton: HTMLButtonElement, elementOn:HTMLElement, elementOff:HTMLElement){
-    finishButton.disabled = true;
 
-    if(elementOn.classList.contains('is-active')){
-      elementOn.classList.toggle('is-active');
-    }
+    this.isAddUser = false;
 
-    if(elementOff.classList.contains('is-active')){
-      elementOff.classList.toggle('is-active');
-    }
+    this.disableButton(finishButton);
+
+    this.removeResponsibilityToggle(elementOn, elementOff);
 
     this.toggleModal(modal);
+
+    const emptyUser = {} as User
+    this.lastSelectedUser = emptyUser;
+    this.hasUserSelected = false;
+    this.hasRespSelected = false;
   }
 
   finishEdit(selectionValue: string, modal: HTMLElement, responsibilityDescription: string){
-    if(!this.isNewResponsibilityCreation){
+    if(this.hasRespSelected && !this.isNewResponsibilityCreation ){
       this.assignResponsibilityToRole(selectionValue, modal);
-    }else{
+    }else if(this.hasRespSelected){
       this.createResponsibilityInWorkspace(responsibilityDescription, modal)
+    }
+    if(this.hasUserSelected){
+      //calls the function to save the user assignment
+      this.completeUserAssignmentToRole()
     }
   }
 
@@ -195,6 +214,83 @@ export class TeamViewComponent implements OnInit {
     }
   }
 
+  getUsers(){
+    this.userService.findAllUsers()
+    .subscribe({
+      next: (response) => {
+        this.userArray = response;
+      }
+    })
+  }
 
+  addMemberToggle(button: HTMLButtonElement, respCreationElement:HTMLElement, respSelectElement:HTMLElement){
+    this.isAddUser = !this.isAddUser;
+    this.disableButton(button);
+    this.removeResponsibilityToggle(respCreationElement,respSelectElement);
+  }
+
+  removeResponsibilityToggle(elementOn:HTMLElement, elementOff:HTMLElement){
+
+    if(elementOn.classList.contains('is-active')){
+      elementOn.classList.toggle('is-active');
+    }
+
+    if(elementOff.classList.contains('is-active')){
+      elementOff.classList.toggle('is-active');
+    }
+  }
+
+  disableButton(button: HTMLButtonElement){
+    button.disabled = true;
+  }
+
+  copyUserValue(selectionValue: string, button: HTMLButtonElement){
+    button.disabled = false;
+    console.log(selectionValue);
+    for (let u of this.userArray){
+      if(u.name === selectionValue){
+        this.lastSelectedUser.id = u.id;
+        this.lastSelectedUser.email = u.email;
+        this.lastSelectedUser.name = u.name;
+        this.lastSelectedUser.workspaceMember = u.workspaceMember
+      }
+    }
+    console.log(this.lastSelectedUser);
+    this.hasUserSelected = true;
+    //parei aqui, no momento que der "SAVE" tem q fazer a request pra fazer o assign caso haja seleção de user.
+  }
+
+  //TODO - Responsibility Select Confirm button to toggle the save button.
+  //TODO -
+  /*In the back end- check if the user selected is already a member
+    of the workspace (with ongoing role -> dateEnd = null)
+    create the workspace member relationship and add to role.
+    */
+
+    completeUserAssignmentToRole(){
+      this.service.assignUserToRole(this.workspaceId,this.selectedRole.id,this.lastSelectedUser.id)
+      .subscribe({
+        next: (response) => {
+          this.roleAssignedMembers = response;
+          console.log(this.roleAssignedMembers)
+        },
+        error: (errorResp) => {
+          console.log(errorResp);
+        }
+      })
+    }
+
+    //Fetches an array of Users that are already assigned to the selected role;
+    findRoleMembers(){
+      this.service.getRoleAssignedUsers(this.workspaceId, this.selectedRole.id)
+      .subscribe({
+        next: (response) => {
+          this.roleAssignedMembers = response;
+        },
+        error: (errorResp) => {
+          console.log(errorResp);
+        }
+      })
+    }
 
 }

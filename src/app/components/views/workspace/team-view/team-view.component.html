@@ -16,6 +16,7 @@
   <div class="modal-card is-dark">
     <header class="modal-card-head is-dark">
       <p class="modal-card-title">See this role in details!</p>
+      <button class="button is-small" (click)="addMemberToggle(FinishButton,ResponsibilityCreationMode,ResponsibilitySelectionMode)">+ Members</button>
       <button class="delete" aria-label="close" (click)="cancelToggle(seeRoleModal,FinishButton,ResponsibilityCreationMode, ResponsibilitySelectionMode)"></button>
     </header>
     <section class="modal-card-body">
@@ -26,7 +27,26 @@
         <h1> Description: </h1>
         <p class="role-description"> {{selectedRole.description}}</p>
         <label class="label">Members</label>
+        <div *ngIf="roleAssignedMembers.length > 0">
+          <div class="resp-desc-div" *ngFor="let member of roleAssignedMembers">
+            <div class="role-resp-desc">
+              <p> {{member.name}} </p>
+            </div>
+          </div>
+        </div>
 
+        <div class="user-selection" *ngIf="isAddUser">
+          <label class="label">Choose which User will be assigned </label>
+          <div class="select">
+            <select #UserSelection>
+              <option *ngFor="let user of userArray;">
+                {{user.name}}
+              </option>
+            </select>
+          </div>
+          <br/>
+          <button class="button is-link is-small" (click)="copyUserValue(UserSelection.value, FinishButton)"> Confirm Selection </button>
+        </div>
 
         <label class="label">Responsibilities</label>
         <div *ngIf="selectedRole?.roleAssignedResponsibilities">
@@ -64,7 +84,6 @@
               </option>
             </select>
           </div>
-
           <button class="button is-link" (click)="copyModelResponsibility(modelResponsibilitySelection.value, responsibilityDesc)"> Confirm Selection </button>
         </div>
         <!-- MODAL CONTENT -->
@@ -80,7 +99,6 @@
           + Existing Responsibility
         </button>
       </div>
-
       <div>
         <button class="button is-primary" (click)="finishEdit(ResponsibilitySelection.value, seeRoleModal, responsibilityDesc.value)" disabled #FinishButton>Save</button>
         <br/>

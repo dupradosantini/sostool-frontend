@@ -152,7 +152,8 @@ export class WorkspaceSingleComponent implements OnInit {
       id: 0,
       name: roleName,
       description: roleDesc,
-      parentRole: this.lastSelectedModel
+      parentRole: this.lastSelectedModel,
+      assignedMembers: []
     }
     console.log(placeholderRole);
 
