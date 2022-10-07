@@ -13,3 +13,11 @@ export interface WorkspaceMember{
   workspace: Workspace[]
   businessRole: Roles[]
 }
+
+export interface RoleHistoryItem{
+
+  role: Roles,
+  dateStart: Date,
+  dateEnd: Date;
+
+}

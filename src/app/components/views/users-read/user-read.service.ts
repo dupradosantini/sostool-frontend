@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { User } from './userModel';
+import { RoleHistoryItem, User } from './userModel';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +21,11 @@ export class UserReadService {
   createUser(userObj: User):Observable<User>{
     const url = `${this.baseUrl}/users`;
     return this.http.post<User>(url,userObj);
+  }
+
+  findUsersRoleHistory(userId: number):Observable<RoleHistoryItem[]>{
+    const url = `${this.baseUrl}/users/${userId}/role-history`
+    return this.http.get<RoleHistoryItem[]>(url);
+
   }
 }

@@ -5,7 +5,7 @@
       <div class="modelResponsibilityElement" *ngFor="let user of userArray">
         <div class="bullet-point">
           <li> {{user.name}} </li>
-          <button class="button is-link is-small">
+          <button class="button is-link is-small" (click)="viewUser(user,viewUserModal)">
             <mat-icon>remove_red_eye</mat-icon>
           </button>
         </div>
@@ -42,6 +42,42 @@
     <footer class="modal-card-foot">
       <button class="button is-link" (click)="createNewUser(userName.value, userMail.value, createUserModal)"> Create </button>
       <button class="button is-link is-light" (click)="toggleModal(createUserModal)"> Cancel </button>
+    </footer>
+  </div>
+</div>
+
+<!-- MODAL TO CREATE A NEW USER !-->
+<div class="modal" #viewUserModal>
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Create new Model Responsibility</p>
+      <button class="delete" aria-label="close" (click)="toggleModal(viewUserModal)"></button>
+    </header>
+    <section class="modal-card-body">
+      <!-- MODAL CONTENT -->
+      <div class="field">
+        <label class="label">Name</label>
+        <div class="control">
+          <p>{{this.selectedUser.name}}</p>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Email</label>
+        <div class="control">
+          <p>{{this.selectedUser.email}}</p>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Histórico de Cargos</label>
+        <div class="control" *ngFor="let item of this.selectedUsersHistory">
+          <p>{{item.role.name}} - Started: {{prettyDate(item.dateStart)}} </p>
+        </div>
+      </div>
+      <!-- MODAL CONTENT -->
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-link is-light" (click)="toggleModal(viewUserModal)"> Close </button>
     </footer>
   </div>
 </div>
