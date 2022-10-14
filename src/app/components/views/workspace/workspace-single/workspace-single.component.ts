@@ -38,6 +38,7 @@ export class WorkspaceSingleComponent implements OnInit {
   workspaceResponsibilities: Responsibility[] = [];
   rolesInMany: Roles[] = [];
   workspaceActivities: Activity[]=[];
+  selectedActivity = {} as Activity;
 
   constructor(
     private service: WorkspaceService,
@@ -272,6 +273,38 @@ export class WorkspaceSingleComponent implements OnInit {
       },
       error: (errorResp) => {
         alert("Something went wrong fetching activities!");
+      }
+    })
+  }
+
+  selectActivity(passedActivity: Activity, modal: HTMLElement, activityDesc:HTMLTextAreaElement){
+    this.selectedActivity = passedActivity;
+    activityDesc.value = this.selectedActivity.description;
+    this.toggleModal(modal);
+  }
+
+  closeActivity(modal:HTMLElement){
+    this.selectedActivity = {} as Activity;
+    this.toggleModal(modal);
+  }
+
+  //Send the information to be updated on the backend!!
+  saveActivity(modal:HTMLElement, descElement: HTMLTextAreaElement){
+    const placeholderActivity: Activity = {
+      id: this.selectedActivity.id,
+      name:this.selectedActivity.name,
+      description:descElement.value
+    }
+    //send the placeholder to update in the backend and alter the value for the activity
+    //that is already in the workspace ativities
+    this.service.updateActivity(placeholderActivity.id, placeholderActivity)
+    .subscribe({
+      next: (response) => {
+        this.getWorkspaceActivities()
+        this.closeActivity(modal);
+      },
+      error: (response) => {
+        alert("Activity update failed!");
       }
     })
   }

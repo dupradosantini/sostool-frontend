@@ -11,11 +11,11 @@
         <!--todo view workspace members-->
       </div>
       <div class="buttons activity-buttons">
-        <button class="button is-info is-small" *ngFor="let activity of this.workspaceActivities">
+        <button class="button is-info is-small" *ngFor="let activity of this.workspaceActivities" (click)="selectActivity(activity, viewActivityModal,activityDesc)">
           {{activity.name}}
-          <input type="checkbox" id="activity-checkbox" disabled checked *ngIf="activity.description != null">
+          <input type="checkbox" id="activity-checkbox"checked *ngIf="activity.description != null">
         </button>
-        <button class="button is-info">+Add Activity</button>
+        <button class="button is-info is-light is-small">+Add Activity</button>
       </div>
     </div>
   </section>
@@ -241,3 +241,31 @@
   </div>
 </div>
 
+<!-- MODAL TO VIEW A USER !-->
+<div class="modal" #viewActivityModal>
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">User Info</p>
+      <button class="delete" aria-label="close" (click)="closeActivity(viewActivityModal)"></button>
+    </header>
+    <section class="modal-card-body">
+      <!-- MODAL CONTENT -->
+      <div class="field">
+        <label class="label">Name</label>
+        <div class="control">
+          <p>{{this.selectedActivity.name}}</p>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Description</label>
+        <textarea class="textarea" placeholder="e.g. Detailed description of an activity" #activityDesc>{{this.selectedActivity.description}}</textarea>
+      </div>
+      <!-- MODAL CONTENT -->
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-link" (click)="saveActivity(viewActivityModal, activityDesc)"> Save </button>
+      <button class="button is-link is-light" (click)="closeActivity(viewActivityModal)"> Close </button>
+    </footer>
+  </div>
+</div>

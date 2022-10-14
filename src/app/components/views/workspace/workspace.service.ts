@@ -78,4 +78,9 @@ export class WorkspaceService {
     const url = `${this.baseUrl}/workspace/${workspaceId}/activities`;
     return this.http.get<Activity[]>(url);
   }
+
+  updateActivity(activityId: number, activityObj: Activity): Observable<Activity>{
+    const url = `${this.baseUrl}/activities/${activityId}`;
+    return this.http.put<Activity>(url,activityObj);
+  }
 }
