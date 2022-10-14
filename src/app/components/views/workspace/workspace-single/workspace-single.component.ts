@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ModelResponsibility, Responsibility } from '../../model-responsibility/model-responsibility.model';
 import { ModelResponsibilityService } from '../../model-responsibility/model-responsibility.service';
 import { ModelRole } from '../../model-role/model-role.model';
-import { Roles, Teams } from '../workspace.model';
+import { Activity, Roles, Teams } from '../workspace.model';
 import { WorkspaceService } from '../workspace.service';
 
 @Component({
@@ -37,6 +37,7 @@ export class WorkspaceSingleComponent implements OnInit {
   workspaceRoles: Roles[] = [];
   workspaceResponsibilities: Responsibility[] = [];
   rolesInMany: Roles[] = [];
+  workspaceActivities: Activity[]=[];
 
   constructor(
     private service: WorkspaceService,
@@ -56,6 +57,7 @@ export class WorkspaceSingleComponent implements OnInit {
     this.getModelRoles();
     this.getModelResponsibilities();
     this.getWorkspaceRoles();
+    this.getWorkspaceActivities();
     this.service.findWorkspaceResponsibilities(this.workspaceId)
     .subscribe({
       next: (response) => {
@@ -176,8 +178,6 @@ export class WorkspaceSingleComponent implements OnInit {
     })
   }
 
-
-
   copyModelRole(selectedModel: string, roleNameField: HTMLInputElement, roleDescField: any){
 
     for(let r of this.modelRoles){
@@ -259,6 +259,21 @@ export class WorkspaceSingleComponent implements OnInit {
       elementOn.classList.toggle('is-active');
       elementOff.classList.toggle('is-active');
     }
+  }
+
+  // ACTIVITIES
+
+  getWorkspaceActivities(){
+    this.service.findWorkspaceActivities(this.workspaceId)
+    .subscribe({
+      next: (response) => {
+        this.workspaceActivities = response;
+        console.log(this.workspaceActivities);
+      },
+      error: (errorResp) => {
+        alert("Something went wrong fetching activities!");
+      }
+    })
   }
 
 }

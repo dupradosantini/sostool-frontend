@@ -42,7 +42,8 @@ export class WorkspaceReadComponent implements OnInit {
       id: 0,
       name: workspaceName,
       description: workspaceDesc,
-      teams: []
+      teams: [],
+      activities: []
     };
 
     this.service.createWorkspace(placeholderWorkspace)

@@ -1,16 +1,27 @@
 <!-- WORKSPACE NAME HERO -->
-<section class="hero-workspace is-small is-primary">
-  <div class="hero-body">
-    <p class="title">
-      {{this.workspaceName}}
-    </p>
-    <div class="buttons">
-      <button class="button is-primary" (click)="getRolesInMoreThanOneTeam(viewRolesModal)">View Roles</button>
-      <button class="button is-primary" (click)="getWorkspaceResponsibilities(viewResponsibilitiesModal)">View Responsibilities</button>
+<div class="top-container">
+  <section class="hero-workspace is-small is-primary">
+    <div class="hero-body">
+      <p class="title">
+        {{this.workspaceName}}
+      </p>
+      <div class="buttons">
+        <button class="button is-primary" (click)="getRolesInMoreThanOneTeam(viewRolesModal)">View Roles</button>
+        <button class="button is-primary" (click)="getWorkspaceResponsibilities(viewResponsibilitiesModal)">View Responsibilities</button>
+        <!--todo view workspace members-->
+      </div>
+      <div class="buttons activity-buttons">
+        <button class="button is-info is-small" *ngFor="let activity of this.workspaceActivities">
+          {{activity.name}}
+          <input type="checkbox" id="activity-checkbox" disabled checked *ngIf="activity.description != null">
+        </button>
+        <button class="button is-info">+Add Activity</button>
+      </div>
     </div>
-  </div>
-</section>
-<hr class="rounded">
+  </section>
+  <hr class="rounded">
+</div>
+
 
 <!-- TEAM PAGE  NAME AND BUTTON HERO -->
 <section class="heroTeamName is-small is-primary" *ngIf="this.teamsArray.length>0 && !this.firstLoad" >

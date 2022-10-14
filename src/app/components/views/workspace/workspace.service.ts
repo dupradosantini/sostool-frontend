@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Roles, Teams, Workspace } from './workspace.model';
+import { Activity, Roles, Teams, Workspace } from './workspace.model';
 import { Responsibility } from '../model-responsibility/model-responsibility.model';
 
 @Injectable({
@@ -72,5 +72,10 @@ export class WorkspaceService {
   createWorkspace(workspace: Workspace): Observable<Workspace> {
     const url = `${this.baseUrl}/workspace`;
     return this.http.post<Workspace>(url, workspace);
+  }
+
+  findWorkspaceActivities(workspaceId: Number): Observable<Activity[]> {
+    const url = `${this.baseUrl}/workspace/${workspaceId}/activities`;
+    return this.http.get<Activity[]>(url);
   }
 }

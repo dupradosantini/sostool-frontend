@@ -7,6 +7,7 @@ export interface Workspace{
   name: String;
   description: String;
   teams: Teams[];
+  activities: Activity[];
 }
 
 export interface Teams{
@@ -22,4 +23,10 @@ export interface Roles{
   parentRole: ModelRole;
   roleAssignedResponsibilities?: Responsibility[];
   assignedMembers: User[];
+}
+
+export interface Activity{
+  id: number,
+  name: string,
+  description: string
 }
