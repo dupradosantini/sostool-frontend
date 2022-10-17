@@ -42,6 +42,7 @@ export class WorkspaceSingleComponent implements OnInit {
   rolesInMany: Roles[] = [];
   workspaceActivities: Activity[]=[];
   selectedActivity = {} as Activity;
+  activityStates: string[] = ["NOT_STARTED","IN_PROGRESS","DONE"];
   userArray: User[]=[];
   usersToBeAddedToActivity: User[] = [];
   selectedActivityUsers: User[] = [];
@@ -179,8 +180,7 @@ export class WorkspaceSingleComponent implements OnInit {
         this.assignRoleToTeam(roleName, modal, modal);
       },
       error: (response) => {
-        console.log(response);
-        this.toggleModal(modal);
+        alert("Role creation failed!");
       }
     })
   }
@@ -287,6 +287,7 @@ export class WorkspaceSingleComponent implements OnInit {
     this.getWorkspaceMembers();
     this.getActivityUsers(passedActivity.id);
     this.selectedActivity = passedActivity;
+    console.log(this.selectedActivity);
     activityDesc.value = this.selectedActivity.description;
     this.toggleModal(modal);
   }
@@ -304,8 +305,9 @@ export class WorkspaceSingleComponent implements OnInit {
 
     const placeholderActivity: Activity = {
       id: this.selectedActivity.id,
-      name:this.selectedActivity.name,
-      description:descElement.value
+      name: this.selectedActivity.name,
+      description: descElement.value,
+      state: this.selectedActivity.state
     }
 
     this.service.updateActivity(placeholderActivity.id, placeholderActivity)
@@ -330,6 +332,7 @@ export class WorkspaceSingleComponent implements OnInit {
         }
       })
     }
+    alert("Activity updated!");
   }
 
   getWorkspaceMembers(){

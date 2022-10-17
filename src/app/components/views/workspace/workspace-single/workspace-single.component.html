@@ -241,7 +241,7 @@
   </div>
 </div>
 
-<!-- MODAL TO VIEW A USER !-->
+<!-- MODAL TO VIEW A ACTIVITY !-->
 <div class="modal" #viewActivityModal>
   <div class="modal-background"></div>
   <div class="modal-card">
@@ -262,6 +262,15 @@
         <label class="label">Description</label>
         <textarea class="textarea" id="desc" placeholder="e.g. Detailed description of an activity" [(ngModel)]="descField" #activityDesc>{{this.selectedActivity.description}}</textarea>
       </div>
+
+      <label class="label">State</label>
+          <div class="select">
+            <select [(ngModel)]="this.selectedActivity.state" [value]="this.selectedActivity.state">
+              <option *ngFor="let state of activityStates;">
+                {{state}}
+              </option>
+            </select>
+          </div>
 
       <label class="label">Collaborators</label>
         <div *ngIf="selectedActivityUsers.length > 0">

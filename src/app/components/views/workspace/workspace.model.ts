@@ -28,5 +28,6 @@ export interface Roles{
 export interface Activity{
   id: number,
   name: string,
-  description: string
+  description: string,
+  state: string
 }
