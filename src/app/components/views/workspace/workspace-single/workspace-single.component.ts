@@ -369,4 +369,20 @@ export class WorkspaceSingleComponent implements OnInit {
     })
   }
 
+  createNewActivity(activityName: string, modal: HTMLElement){
+    let activityObj = {} as Activity;
+    activityObj.name= activityName;
+    this.service.createNewActivity(this.workspaceId, activityObj)
+    .subscribe({
+      next: (response) => {
+        console.log(response);
+        this.getWorkspaceActivities();
+        this.toggleModal(modal);
+      },
+      error: (errorResp) => {
+        alert("Something went wrong creating the activity!")
+      }
+    })
+  }
+
 }

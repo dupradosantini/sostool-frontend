@@ -99,4 +99,9 @@ export class WorkspaceService {
     const url = `${this.baseUrl}/activities/${activityId}/users`;
     return this.http.get<User[]>(url);
   }
+
+  createNewActivity(workspaceId: Number, activity: Activity):Observable<Activity>{
+    const url = `${this.baseUrl}/workspace/${workspaceId}/activities`;
+    return this.http.post<Activity>(url,activity);
+  }
 }

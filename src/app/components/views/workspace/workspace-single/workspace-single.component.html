@@ -15,7 +15,7 @@
           {{activity.name}}
           <input type="checkbox" id="activity-checkbox"checked *ngIf="activity.description != null">
         </button>
-        <button class="button is-info is-light is-small">+Add Activity</button>
+        <button class="button is-info is-light is-small" (click)="toggleModal(createActivityModal)">+Add Activity</button>
       </div>
     </div>
   </section>
@@ -295,6 +295,31 @@
     <footer class="modal-card-foot">
       <button class="button is-link" (click)="saveActivity(viewActivityModal, activityDesc)" [disabled]="descField===''"> Save </button>
       <button class="button is-link is-light" (click)="closeActivity(viewActivityModal)"> Close </button>
+    </footer>
+  </div>
+</div>
+
+<!-- MODAL TO CREATE A NEW USER !-->
+<div class="modal" #createActivityModal>
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Create Activity</p>
+      <button class="delete" aria-label="close" (click)="toggleModal(createActivityModal)"></button>
+    </header>
+    <section class="modal-card-body">
+      <!-- MODAL CONTENT -->
+      <div class="field">
+        <label class="label">Activity Name</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="e.g. Activity name example" #activityName>
+        </div>
+      </div>
+      <!-- MODAL CONTENT -->
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-link" (click)="createNewActivity(activityName.value, createActivityModal)"> Create </button>
+      <button class="button is-link is-light" (click)="toggleModal(createActivityModal)"> Cancel </button>
     </footer>
   </div>
 </div>
