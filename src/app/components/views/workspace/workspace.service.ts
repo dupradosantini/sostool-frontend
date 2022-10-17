@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Activity, Roles, Teams, Workspace } from './workspace.model';
 import { Responsibility } from '../model-responsibility/model-responsibility.model';
+import { User } from '../users-read/userModel';
 
 @Injectable({
   providedIn: 'root'
@@ -82,5 +83,20 @@ export class WorkspaceService {
   updateActivity(activityId: number, activityObj: Activity): Observable<Activity>{
     const url = `${this.baseUrl}/activities/${activityId}`;
     return this.http.put<Activity>(url,activityObj);
+  }
+
+  findWorkspaceMembers(workspaceId: Number): Observable<User[]>{
+    const url = `${this.baseUrl}/users/${workspaceId}/current-members`;
+    return this.http.get<User[]>(url);
+  }
+
+  addUsersToActivity(activityId: number, usersToBeAdded: User[]): Observable<Activity>{
+    const url = `${this.baseUrl}/activities/${activityId}/add-members`;
+    return this.http.put<Activity>(url, usersToBeAdded);
+  }
+
+  findActivityUsers(activityId: number): Observable<User[]> {
+    const url = `${this.baseUrl}/activities/${activityId}/users`;
+    return this.http.get<User[]>(url);
   }
 }

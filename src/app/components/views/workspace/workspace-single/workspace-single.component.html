@@ -246,7 +246,8 @@
   <div class="modal-background"></div>
   <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">User Info</p>
+      <p class="modal-card-title">Activity Info</p>
+      <button class="button is-small" (click)="this.isAddUser = true">+ Collaborators</button>
       <button class="delete" aria-label="close" (click)="closeActivity(viewActivityModal)"></button>
     </header>
     <section class="modal-card-body">
@@ -259,12 +260,40 @@
       </div>
       <div class="field">
         <label class="label">Description</label>
-        <textarea class="textarea" placeholder="e.g. Detailed description of an activity" #activityDesc>{{this.selectedActivity.description}}</textarea>
+        <textarea class="textarea" id="desc" placeholder="e.g. Detailed description of an activity" [(ngModel)]="descField" #activityDesc>{{this.selectedActivity.description}}</textarea>
       </div>
+
+      <label class="label">Collaborators</label>
+        <div *ngIf="selectedActivityUsers.length > 0">
+          <div class="resp-desc-div" *ngFor="let member of selectedActivityUsers">
+            <div class="role-resp-desc">
+              <p> {{member.name}} </p>
+            </div>
+          </div>
+        </div>
+
+
+      <br/>
+      <div class="user-selection" *ngIf="isAddUser">
+        <label class="label">Choose which User will be assigned </label>
+        <div class="select">
+          <select #UserSelection>
+            <option *ngFor="let user of userArray;">
+              {{user.name}}
+            </option>
+          </select>
+        </div>
+        <button class="button is-link is-small" (click)="addUserValue(UserSelection.value)"> Confirm Selection </button>
+      </div>
+
+
+
+
+
       <!-- MODAL CONTENT -->
     </section>
     <footer class="modal-card-foot">
-      <button class="button is-link" (click)="saveActivity(viewActivityModal, activityDesc)"> Save </button>
+      <button class="button is-link" (click)="saveActivity(viewActivityModal, activityDesc)" [disabled]="descField===''"> Save </button>
       <button class="button is-link is-light" (click)="closeActivity(viewActivityModal)"> Close </button>
     </footer>
   </div>

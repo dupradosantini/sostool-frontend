@@ -254,7 +254,6 @@ export class TeamViewComponent implements OnInit {
     }
     console.log(this.lastSelectedUser);
     this.hasUserSelected = true;
-    //parei aqui, no momento que der "SAVE" tem q fazer a request pra fazer o assign caso haja seleção de user.
   }
 
   //TODO - Responsibility Select Confirm button to toggle the save button.

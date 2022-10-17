@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ModelResponsibility, Responsibility } from '../../model-responsibility/model-responsibility.model';
 import { ModelResponsibilityService } from '../../model-responsibility/model-responsibility.service';
 import { ModelRole } from '../../model-role/model-role.model';
+import { User } from '../../users-read/userModel';
 import { Activity, Roles, Teams } from '../workspace.model';
 import { WorkspaceService } from '../workspace.service';
 
@@ -13,6 +14,8 @@ import { WorkspaceService } from '../workspace.service';
 })
 export class WorkspaceSingleComponent implements OnInit {
 
+  public descField: string = "";
+  isAddUser: boolean = false;
   isNewRoleCreation: boolean = true;
   firstLoad: boolean = true;
   workspaceId: Number;
@@ -39,6 +42,9 @@ export class WorkspaceSingleComponent implements OnInit {
   rolesInMany: Roles[] = [];
   workspaceActivities: Activity[]=[];
   selectedActivity = {} as Activity;
+  userArray: User[]=[];
+  usersToBeAddedToActivity: User[] = [];
+  selectedActivityUsers: User[] = [];
 
   constructor(
     private service: WorkspaceService,
@@ -278,6 +284,8 @@ export class WorkspaceSingleComponent implements OnInit {
   }
 
   selectActivity(passedActivity: Activity, modal: HTMLElement, activityDesc:HTMLTextAreaElement){
+    this.getWorkspaceMembers();
+    this.getActivityUsers(passedActivity.id);
     this.selectedActivity = passedActivity;
     activityDesc.value = this.selectedActivity.description;
     this.toggleModal(modal);
@@ -285,26 +293,78 @@ export class WorkspaceSingleComponent implements OnInit {
 
   closeActivity(modal:HTMLElement){
     this.selectedActivity = {} as Activity;
+    this.isAddUser = false;
+    this.usersToBeAddedToActivity = [];
+    this.selectedActivityUsers = [];
+    this.descField = "";
     this.toggleModal(modal);
   }
 
-  //Send the information to be updated on the backend!!
   saveActivity(modal:HTMLElement, descElement: HTMLTextAreaElement){
+
     const placeholderActivity: Activity = {
       id: this.selectedActivity.id,
       name:this.selectedActivity.name,
       description:descElement.value
     }
-    //send the placeholder to update in the backend and alter the value for the activity
-    //that is already in the workspace ativities
+
     this.service.updateActivity(placeholderActivity.id, placeholderActivity)
     .subscribe({
       next: (response) => {
         this.getWorkspaceActivities()
+        this.descField = "";
         this.closeActivity(modal);
       },
       error: (response) => {
         alert("Activity update failed!");
+      }
+    })
+    if(this.usersToBeAddedToActivity.length > 0){
+      this.service.addUsersToActivity(this.selectedActivity.id,this.usersToBeAddedToActivity)
+      .subscribe({
+        next: (response) => {
+          console.log(response);
+        },
+        error: (errorResp) => {
+          alert("User insertion in activity failed!");
+        }
+      })
+    }
+  }
+
+  getWorkspaceMembers(){
+    this.service.findWorkspaceMembers(this.workspaceId)
+    .subscribe({
+      next: (response) => {
+        this.userArray = response;
+      },
+      error: (errorResp) => {
+        console.log("Error fetching workspace members");
+      }
+    })
+  }
+
+  addUserValue(selectionValue: string){
+    console.log(selectionValue);
+    for (let u of this.userArray){
+      if(u.name === selectionValue && !this.selectedActivityUsers.includes(u)){
+        this.usersToBeAddedToActivity.push(u);
+        this.selectedActivityUsers.push(u);
+        console.log(this.selectedActivityUsers);
+      }
+    }
+  }
+
+  getActivityUsers(activityId: number){
+    this.service.findActivityUsers(activityId)
+    .subscribe({
+      next: (response) => {
+        this.selectedActivityUsers = response;
+        console.log("Users in activity:")
+        console.log(response);
+      },
+      error: (errorResp) => {
+        console.log("Error fetching users assigned to activity");
       }
     })
   }

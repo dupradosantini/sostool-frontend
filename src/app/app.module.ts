@@ -16,6 +16,7 @@ import { ModelResponsibilityComponent } from './components/views/model-responsib
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { UsersReadComponent } from './components/views/users-read/users-read.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { UsersReadComponent } from './components/views/users-read/users-read.com
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatIconModule
+    MatIconModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
