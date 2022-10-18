@@ -71,7 +71,10 @@
       <div class="field">
         <label class="label">Histórico de Cargos</label>
         <div class="control" *ngFor="let item of this.selectedUsersHistory">
-          <p>{{item.role.name}} - Started: {{prettyDate(item.dateStart)}} </p>
+          <p>
+            {{item.role.name}} - Started: {{prettyDate(item.dateStart)}}
+            <span *ngIf="item.dateEnd" class="end-text">- Ended: {{prettyDate(item.dateEnd)}}</span>
+          </p>
         </div>
       </div>
       <!-- MODAL CONTENT -->

@@ -26,6 +26,11 @@ export class TeamViewService {
     return this.http.put<Responsibility[]>(url,null);
   }
 
+  removeMemberFromRole(workspaceId:Number, roleId: Number, member: User):Observable<User[]>{
+    const url = `${this.baseUrl}/workspace/${workspaceId}/businessroles/${roleId}/member-remove`;
+    return this.http.put<User[]>(url,member);
+  }
+
   assignUserToRole(workspaceId: Number, roleId: Number, userId: number):Observable<User[]>{
     const url = `${this.baseUrl}/workspace/${workspaceId}/businessroles/${roleId}/member/${userId}`
     return this.http.put<User[]>(url,null);

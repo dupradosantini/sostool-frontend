@@ -211,6 +211,24 @@ export class TeamViewComponent implements OnInit {
     }
   }
 
+  removeMemberFromRole(member: User){
+    console.log(member);
+    console.log(this.selectedRole);
+    const roleId = this.selectedRole.id;
+    this.service.removeMemberFromRole(this.workspaceId,roleId, member)
+    .subscribe({
+      next: (response) => {
+        console.log(response);
+        //update the view to show that the user was removed.
+        this.findRoleMembers();
+      },
+      error: (errorResp) => {
+        console.log(errorResp);
+        alert("User removal from role failed!");
+      }
+    })
+  }
+
   getUsers(){
     this.userService.findAllUsers()
     .subscribe({
